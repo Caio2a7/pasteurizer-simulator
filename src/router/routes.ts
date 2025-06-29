@@ -1,0 +1,19 @@
+import { type RouteRecordRaw } from "vue-router";
+
+export const routes: RouteRecordRaw[] = [
+    {
+        path: '/',
+        name: 'Inicio',
+        component: () => import("@/views/Home.vue")
+    },
+    {
+        path: '/sobre',
+        name: 'Sobre',
+        component: () => import("@/views/About.vue")
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'Não Encontrado',
+        component: () => import("@/views/404.vue")
+    }
+]
