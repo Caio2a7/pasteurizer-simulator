@@ -1,20 +1,22 @@
 <script lang="ts">
 import { PasteurizerSettings, Pasteurizer } from '@/services/Pasteurizer';
+import { reactive, computed } from 'vue';
 
-const settings:PasteurizerSettings = {
+const settings:PasteurizerSettings = reactive<PasteurizerSettings>({
     milkInputTemp: 7,
     milkHeatingTemp: 72,
     milkVolume: 500,
+    milkFreezeTemp: 4.5,
     duration: 1,
-    efficiency: 75,
-    
-    steamTotalMassIn: 100
-}
+    efficiency: 75
+})
 
-const pasteurizer = new Pasteurizer(settings);
+const heatLoss = computed(() => {
+    const pasteurizer = new Pasteurizer(settings);
+    return pasteurizer.heatLoss();
+})
 
-const teste = pasteurizer.heatLoss();
-console.log(teste)
+console.log(heatLoss.value)
 </script>
 
 <template>
