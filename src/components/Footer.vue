@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <footer class="w-screen bg-gradient-to-r from-[#2E3A4B] via-[#212f42] to-[#354e76] text-white border-t border-white/10">
+    <footer class="bottom-0 z-50 mt-10 w-full bg-gradient-to-r from-[#2E3A4B] via-[#212f42] to-[#354e76] text-white shadow-lg">
         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
             <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
                 

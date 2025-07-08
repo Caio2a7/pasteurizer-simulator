@@ -3,7 +3,6 @@
 :root {
   --gradient-main: linear-gradient(102.7deg, rgba(185, 185, 241, .2), rgba(84, 132, 234, .2) 51.56%, rgba(58, 142, 137, .2));
 
-
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -18,29 +17,19 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 } 
-
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
+.shadow-window-box {
+    --shadow-window-box-1: 0 0 15px 0 rgb(192 132 252 / 0.1);
+    --shadow-window-box-2: 0 0 40px -3px rgb(192 132 252 / 0.15);
+    --shadow-window-box-3: 0 0 65px -5px rgb(192 132 252 / 0.1);
+    --shadow-window-box-4: inset 0 0 1px 1px rgb(255 255 255 / 0.05);
+    --shadow-window-box-5: 0 0 #0000;
+    --tw-shadow: var(--shadow-window-box-1), var(--shadow-window-box-2), var(--shadow-window-box-3), var(--shadow-window-box-4), var(--shadow-window-box-5);
+    --tw-shadow-colored: var(--shadow-window-box-1), var(--shadow-window-box-2), var(--shadow-window-box-3), var(--shadow-window-box-4), var(--shadow-window-box-5);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
 
-h2 {
-  font-size: 2.3em;
-  line-height: 0.8;
-}
-
-h3{
-  font-size: 1.4em;
-  line-height: 0.8;
-}
-
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
@@ -48,4 +37,4 @@ h3{
   button {
     background-color: #f9f9f9;
   }
-} 
+}  */
