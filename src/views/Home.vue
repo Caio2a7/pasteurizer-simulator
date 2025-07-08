@@ -5,9 +5,10 @@ const settings:PasteurizerSettings = {
     milkInputTemp: 7,
     milkHeatingTemp: 72,
     milkVolume: 500,
-    steamTotalMassIn: 100,
     duration: 1,
-    efficiency: 75
+    efficiency: 75,
+    
+    steamTotalMassIn: 100
 }
 
 const pasteurizer = new Pasteurizer(settings);

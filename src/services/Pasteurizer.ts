@@ -5,7 +5,8 @@ export interface PasteurizerSettings {
     milkHeatingTemp: number,
     // (L) Volume de leite introduzido no pasteurizador
     milkVolume: number,
-    
+    // Celsius
+    milkFreezeTemp: number,
     
     steamTotalMassIn: number;
     
@@ -21,6 +22,7 @@ export interface PasteurizerSettings {
 
 
 export class Pasteurizer{
+    // CONSTANTES
     // kJ/(kg*°C) Calor específico do leite
     public static readonly milkSpecificHeatTemp = 3.9;
     // (kg/m³) Densidade do leite
@@ -29,14 +31,17 @@ export class Pasteurizer{
     public static readonly waterSpecificHeatTemp = 4.18;
     // (kJ/kg) Calor específico do leite
     public static readonly steamLatentHeat = 2257; 
+
     // (kg/m³) Densidade do vapor a 2 atm
     public static readonly steamDensity = 0.943; 
     // U - W/(m².°C) Coeficiente global de troca térmica
     public static readonly globalHeatExchangeCoef = 3000; 
-
+    
+    //INPUTS
     private milkInputTemp:number;
     private milkHeatingTemp: number;
     private milkVolume: number;
+    private milkFreezeTemp:number;
 
     private steamTotalMassIn: number;
 
@@ -47,6 +52,7 @@ export class Pasteurizer{
         this.milkInputTemp = settings.milkInputTemp;
         this.milkHeatingTemp = settings.milkHeatingTemp;
         this.milkVolume = settings.milkVolume;
+        this.milkFreezeTemp = settings.milkFreezeTemp;
 
         this.steamTotalMassIn = settings.steamTotalMassIn;
 
@@ -58,72 +64,104 @@ export class Pasteurizer{
     // 2ª Q (leite) = m (leite) * c (leite) * (Tf - Ti)  
     // O: Q - (kJ) Total de energia gasta
     public EnergyConsumedtoHeatMilk():number{
-        const milkDensistyByLiter:number = Pasteurizer.milkDensity/1000;
-        const milkMass:number = this.milkVolume * milkDensistyByLiter;
-        const tempVariation:number = this.milkHeatingTemp - this.milkInputTemp;
-        const energyConsumed:number = milkMass * Pasteurizer.milkSpecificHeatTemp * tempVariation
-        
-        // convertido de joule para kiloJoule
-        const result:number = energyConsumed / 1000
-        
+        //CONVERSÕES
+        const milkVolumeInM3 = this.milkVolume / 1000;
+        const efficiencyInDecimal = this.efficiency / 100;
+
+        // VALORES NECESSÁRIOS
+        const milkMass:number = milkVolumeInM3 * Pasteurizer.milkDensity;
+
+        // FORMULAS
+        // 1º
+        const milkTempDiff:number = this.milkHeatingTemp - this.milkInputTemp;
+        const energyConsumed:number = milkMass * Pasteurizer.milkSpecificHeatTemp * milkTempDiff;
+        console.log(milkMass)
+        // 2º
+        const result = energyConsumed / efficiencyInDecimal;
+
         return result;
     }
     
-    // O: V - (L/min) Vazão do leite pasteurizado
+    // O: Vazão(V) - (L/min) Vazão do leite pasteurizado
     public milkFlowRate():number{
-        const durationInMinutes:number = this.duration * 60 
-        const result:number = this.milkVolume / durationInMinutes;
+        // CONVERSÕES
+        const durationInMin:number = this.duration * 60 
+        // FORMULAS
+        // 1º
+        const result:number = this.milkVolume / durationInMin;
+        
         return result;
     }
 
-    // O: (m3/s) Vazão de entrada de vapor
+    // O: (kg/h) Vazão de entrada de vapor
     public steamInputFlowRate():number{
-        // reconverter a energia consumida para joule (multiplica-se por 1000)
-        const steamMass:number = (this.EnergyConsumedtoHeatMilk() * 1000) / Pasteurizer.steamLatentHeat;
-        const steamFlow:number = steamMass / Pasteurizer.steamDensity;
-        const steamFlowByDuration:number = steamFlow / this.duration;
-        // conversão para segundos
-        const result:number = steamFlowByDuration / 3600
+        // FORMULAS
+        // 1º Vazão de Massa de Vapor
+        const steamMass:number = this.EnergyConsumedtoHeatMilk() / Pasteurizer.steamLatentHeat;
+        // 2º Calcular a vazão de entrada de vapor no pasteurizador        
+        const result:number = steamMass / this.duration;
+
         return result;
     }
 
-    // O: (m3/s) Vazão de saída de vapor
+    // O: (kg/h) Vazão de entrada de água fria
+    public freezingWaterInputFlowRate():number{
+        // CONVERSÕES
+        const milkVolumeInM3 = this.milkVolume / 1000;
 
-    public steamOutputFlowRate():number{
-        // reconverter a energia consumida para joule (multiplica-se por 1000)
-        const condensedSteamMass:number = (this.EnergyConsumedtoHeatMilk() * 1000) / Pasteurizer.steamLatentHeat;
-        const steamTotalMassOut:number = this.steamTotalMassIn - condensedSteamMass;
-        const steamFlowRate:number = steamTotalMassOut / Pasteurizer.steamDensity;
-        // (m³/h -> m³/s) conversão para segundos
-        const result:number = steamFlowRate / 3600;
+        // VALORES NECESSÁRIOS
+        const milkMass:number = milkVolumeInM3 * Pasteurizer.milkDensity;
+
+        // DEFINIDOS POR LÊLÊ
+        const waterInTemp:number = 2;
+        const waterOutTemp:number = 25;
+        const milkInTemp = this.milkHeatingTemp; 
+        const milkOutTemp = 4.5;
+
+        //FORMULAS
+        // 1º Calcular a Energia a Ser Removida do Leite
+        const milkTempDiff:number = milkInTemp - milkOutTemp;
+        const energyConsumedToFreeze:number = milkMass * Pasteurizer.milkSpecificHeatTemp * milkTempDiff;
+        // 2º Calcular a Vazão Mássica de Água Fria
+        const waterTempDiff:number = waterOutTemp - waterInTemp;
+        const waterMass = (energyConsumedToFreeze) / (Pasteurizer.waterSpecificHeatTemp * waterTempDiff)
+        // 3º Calcular a Vazão de Entrada de Água Fria 
+        const result:number = waterMass / this.duration;
         return result;
     }
 
     // O: (m²) Área necessária do trocador de calor
-
     public requiredAreaToHeatExchanger():number{
+        //CONVERSÕES
+        const energyConsumedInJoule = this.EnergyConsumedtoHeatMilk() * 1000;
+        const durationInSeconds = this.duration * 3600;
+
+        // VALOR NECESSÁRIO
+        const potency = energyConsumedInJoule / durationInSeconds;
+
+        // DEFINIDOS POR LÊLÊ
         const waterInTemp:number = 85;
         const waterOutTemp:number = 70;
 
-        const logarithmicTempDifferenceMean:number = ((waterInTemp - this.milkHeatingTemp) - (waterOutTemp - this.milkInputTemp)) / Math.log(((waterInTemp - this.milkHeatingTemp) / (waterOutTemp - this.milkInputTemp)));
-
-        const result:number = this.EnergyConsumedtoHeatMilk() / Pasteurizer.globalHeatExchangeCoef * logarithmicTempDifferenceMean;
+        //FORMULAS
+        // - Diferença de Temperatura Média Logarítmica (ΔTml​)
+        const WaterInMilkOutTempDiff = waterInTemp - this.milkHeatingTemp;
+        const WaterOutMilkInTempDIff = waterOutTemp - this.milkInputTemp;
+        const logTempDiffMean:number = ((WaterOutMilkInTempDIff)-(WaterInMilkOutTempDiff)) / Math.log(WaterInMilkOutTempDiff / WaterOutMilkInTempDIff);
+        // - Area necessária
+        console.log(potency)
+        const result:number = potency / (Pasteurizer.globalHeatExchangeCoef * logTempDiffMean);
 
         return result;
     }
 
     // O: (kJ) Perdas térmicas
     public heatLoss():number{
-        // reconverter a energia consumida para joule (multiplica-se por 1000)
-        const energyConsumedInJoule = this.EnergyConsumedtoHeatMilk() * 1000;
-        // ademais eficiência em decimal (divisão por 100)
+        // Eficiência em decimal (divisão por 100)
         const efficiencyInDecimal = this.efficiency / 100;
 
-        const energyProvided:number = energyConsumedInJoule / efficiencyInDecimal;
-        // energia fornecida convertida em kiloJoule (multiplica-se por 1000)
-        console.log(energyProvided)
-        const result:number = energyProvided * (1 - efficiencyInDecimal);
-        return result / 1000;
+        //FORMULA
+        const result:number = this.EnergyConsumedtoHeatMilk() * (1 - efficiencyInDecimal);
+        return result
     }
-
 }
