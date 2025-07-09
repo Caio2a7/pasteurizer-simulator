@@ -55,7 +55,9 @@ main{
 .disabled-input{
   background-color: #d0e4ff;
 }
-
+button{
+  cursor: pointer;
+}
 /* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
