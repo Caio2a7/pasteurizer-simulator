@@ -37,8 +37,8 @@ const cardsButtonTransition = ref('');
 </script>
 
 <template>
-    <div class="relative flex justify-center items-center my-7">
-        <div class="absolute top-2 right-4 z-10 flex items-center gap-x-2">
+    <div class="relative flex justify-center items-center mt-0 mb-7 pt-12">
+        <div class="absolute right-4 lg:top-14 md:top-2 sm:top-2 z-10 flex items-center gap-x-2">
             <button
                 type="button"
                 aria-label="Anterior"

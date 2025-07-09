@@ -241,7 +241,7 @@ const labels = {
                     </template>
                 </Card> 
         
-                <Card v-if="actualCardPosition === 2" @calc="steamInputFlowRate()" :calcResult="pasteurizerResults.steamInputFlowRate.result" :calcResultMeasure="pasteurizerResults.steamInputFlowRate.measure" cardTitle="Vazão de Entrada de Vapor no Pasteurizador (kg/h')"> 
+                <Card v-if="actualCardPosition === 2" @calc="steamInputFlowRate()" :calcResult="pasteurizerResults.steamInputFlowRate.result" :calcResultMeasure="pasteurizerResults.steamInputFlowRate.measure" cardTitle="Vazão de Entrada de Vapor no Pasteurizador (kg/h)"> 
                     <template v-slot:card-form>
                         <div>
                             <label for="energytotalConsumedSteamInput" class="block mb-2 text-sm font-medium text-gray-700 ">Energia Total Gasta pelo Pasteurizador</label>

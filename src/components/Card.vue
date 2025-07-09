@@ -26,7 +26,7 @@ const onCalcButtonClick = () => {
                     <line x1="8" x2="8" y1="10" y2="18"></line>
                 </svg>
             </div>
-            <p class="text-xl font-bold text-gray-800 "> {{ props.cardTitle }} </p>
+            <p class="lg:text-xl sm:text-[15px] flex-1 break-words font-bold text-gray-800"> {{ props.cardTitle }} </p>
         </div>
         
         <div class="p-6 space-y-6">
