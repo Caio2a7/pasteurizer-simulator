@@ -10,7 +10,7 @@ function toggleMenu() {
 </script>
 
 <template>
-  <header class="sticky top-0 z-50 w-full border-b border-white/10 bg-gradient-to-r from-[#2E3A4B] via-[#212f42] to-[#354e76] text-white shadow-2xl backdrop-blur-sm">
+  <header class="sticky top-0 z-50 w-full border-b border-white/10 bg-gradient-to-r from-[#2E3A4B] via-[#212f42] to-[#354e76] text-white shadow-md backdrop-blur-sm">
     <div class="mx-auto flex h-20  items-center justify-between px-2 sm:px-4 lg:px-6">
 
         <div class="flex items-center gap-4">
@@ -30,19 +30,19 @@ function toggleMenu() {
       <nav class="hidden items-center gap-2 lg:flex">
         <a href="/" class="group relative px-3 py-2 text-sm font-medium text-gray-300 transition-colors hover:text-white">
           Início
-          <span class="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-sky-400 transition-all duration-300 group-hover:w-full"></span>
+          <span class="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-white transition-all duration-300 group-hover:w-full"></span>
         </a>
         <a href="/sobre" class="group relative px-3 py-2 text-sm font-medium text-gray-300 transition-colors hover:text-white">
           Sobre
-          <span class="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-sky-400 transition-all duration-300 group-hover:w-full"></span>
+          <span class="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-white transition-all duration-300 group-hover:w-full"></span>
         </a>
         <a href="/tech" class="group relative px-3 py-2 text-sm font-medium text-gray-300 transition-colors hover:text-white">
           Tecnologias
-          <span class="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-sky-400 transition-all duration-300 group-hover:w-full"></span>
+          <span class="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-white transition-all duration-300 group-hover:w-full"></span>
         </a>
         <a href="/faq" class="group relative px-3 py-2 text-sm font-medium text-gray-300 transition-colors hover:text-white">
           FAQ
-          <span class="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-sky-400 transition-all duration-300 group-hover:w-full"></span>
+          <span class="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-white transition-all duration-300 group-hover:w-full"></span>
         </a>
       </nav>
 

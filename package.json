@@ -16,6 +16,7 @@
     "@vue-flow/minimap": "^1.5.3",
     "aos": "^2.3.4",
     "axios": "^1.10.0",
+    "katex": "^0.16.22",
     "path": "^0.12.7",
     "pinia": "^3.0.3",
     "tailwindcss": "^4.1.11",

@@ -172,7 +172,8 @@ const labels = {
         <!-- <Flow /> -->
 
         <CardsCaroulsel data-aos="fade-up" duration="200" @backCard="handleBackCard()" @forwardCard="handleForwardCard()" :transitionName="transitionName" :disabledButton="disabledButton">
-        <div class="flex justify-center min-w-[1000px] " :key="actualCardPosition">
+        
+            <div class="flex justify-center min-w-[1000px] " :key="actualCardPosition">
             <Card v-if="actualCardPosition === 0" @calc="EnergyConsumedToHeatMilk()" :calcResult="pasteurizerResults.energyConsumedToHeatMilk.result" :calcResultMeasure="pasteurizerResults.energyConsumedToHeatMilk.measure" cardTitle="Energia Total Gasta pelo Pasteurizador (kJ)"> 
                     <template v-slot:card-form>
                         <div>

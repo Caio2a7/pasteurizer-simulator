@@ -10,7 +10,8 @@ const props = defineProps({
 
 const emit = defineEmits([
     'backCard',
-    'forwardCard'
+    'forwardCard',
+    'reset'
 ])
 
 const onBackCard = () => {
@@ -27,18 +28,49 @@ const onForwardCard = () => {
         cardsButtonTransition.value = 'opacity-100';
     }, 400); 
 }
+const onResetCard = () => {
+    // Emite um evento 'reset' que o componente pai pode ouvir
+    emit('reset');
+};
 const cardsButtonTransition = ref('');
 
 </script>
 
 <template>
     <div class="relative flex justify-center items-center my-7">
-        <div class="z-40 absolute right-5 top-3">
-            <button @click="onBackCard()" :class="props.disabledButton === 'l' ? 'border-gray-400 shadow-lg mx-1 rounded-sm disabled bg-gray-400' : '' + `${cardsButtonTransition} button-transition border border-gray-400 shadow-lg mx-1 rounded-sm text-white font-bold bg-[#1E61D9]`">
-                <LeftArrow class="w-6 h-6" />
+        <div class="absolute top-2 right-4 z-10 flex items-center gap-x-2">
+            <button
+                type="button"
+                aria-label="Anterior"
+                @click="onBackCard()"
+                :disabled="props.disabledButton === 'l'"
+                class="
+                    border border-gray-400 shadow-sm flex items-center justify-center w-8 h-8 rounded-full transition-all duration-300
+                    bg-white/60 text-slate-700 backdrop-blur-sm
+                "
+                :class="{
+                    'hover:bg-blue-600 hover:text-white hover:shadow-lg hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2': props.disabledButton !== 'l',
+                    'opacity-50 cursor-not-allowed': props.disabledButton === 'l'
+                }"
+            >
+                <LeftArrow class="w-5 h-5" />
             </button>
-            <button @click="onForwardCard()" :class="props.disabledButton === 'r' ? 'border-gray-400 shadow-lg mx-1 rounded-sm disabled bg-gray-400' : '' + `${cardsButtonTransition} button-transition border border-gray-400 shadow-lg mx-1 rounded-sm text-white font-bold bg-[#1E61D9]`">
-                <RightArrow class="w-6 h-6" />
+
+            <button
+                type="button"
+                aria-label="Próximo"
+                @click="onForwardCard()"
+                :disabled="props.disabledButton === 'r'"
+                class="
+                    border border-gray-400 shadow-sm flex items-center justify-center w-8 h-8 rounded-full transition-all duration-300
+                    bg-white/60 text-slate-700 backdrop-blur-sm
+                "
+                :class="{
+                    'hover:bg-blue-600 hover:text-white hover:shadow-lg hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2': props.disabledButton !== 'r',
+                    'opacity-50 cursor-not-allowed': props.disabledButton === 'r'
+                }"
+            >
+                <RightArrow class="w-5 h-5" />
             </button>
         </div>
         <Transition :name="props.transitionName" mode="out-in">
