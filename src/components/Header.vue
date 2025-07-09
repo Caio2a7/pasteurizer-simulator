@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <header class="sticky top-0 z-50 mb-10 w-full bg-[#2a4656] text-white shadow-lg">
+    <header class="sticky top-0 z-50 mb-10 w-full header-custom-gradient text-white shadow-lg">
         <div class="flex items-center justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16">
             <div class="flex  items-center justify-between">
 
@@ -26,5 +26,7 @@
 </template>
 
 <style scoped>
-  /* Estilos específicos do componente aqui */
+.header-custom-gradient {
+background-image: linear-gradient(to right, #eef2f3, #8e9eab);
+}
 </style>

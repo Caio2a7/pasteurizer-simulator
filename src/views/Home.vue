@@ -118,7 +118,39 @@ watch(pasteurizerResults, (newValues) => {
 }, {
   deep: true 
 });
-
+// Remova o objeto 'labels' antigo e substitua por este
+const cardDetails = {
+  energyConsumedToHeatMilk: {
+    label: 'Energia Consumida',
+    description: 'Representa a quantidade total de energia térmica necessária para elevar a temperatura do leite até o nível de pasteurização.',
+    icon: `<p>⚡</p>`
+  },
+  milkFlowRate: {
+    label: 'Vazão de Leite',
+    description: 'Indica o volume de leite que o sistema consegue processar por minuto. Essencial para o dimensionamento da produção.',
+    icon: `<p>🥛</p>`
+  },
+  steamInputFlowRate: {
+    label: 'Vazão de Vapor',
+    description: 'A quantidade de vapor de alta temperatura necessária por hora para fornecer a energia ao trocador de calor.',
+    icon: `<p>💨</p>`
+  },
+  freezingWaterInputFlowRate: {
+    label: 'Vazão de Água Gelada',
+    description: 'O volume de água gelada utilizado para resfriar rapidamente o leite após a pasteurização, garantindo sua conservação.',
+    icon: `<p>❄️</p>`
+  },
+  requiredAreaToHeatExchanger: {
+    label: 'Área de Troca',
+    description: 'A área de superfície necessária no trocador de calor para que a transferência de energia térmica ocorra de forma eficiente.',
+    icon: `<p>↔️</p>`
+  },
+  heatLoss: {
+    label: 'Perda de Calor',
+    description: 'Energia dissipada para o ambiente durante o processo. Um valor menor indica maior eficiência energética do sistema.',
+    icon: `<p>🔥</p>`
+  }
+};
 
 const labels = {
   energyConsumedToHeatMilk: '⚡ Energia para Aquecer',
@@ -336,27 +368,45 @@ const labels = {
             </div>
         </CardsCaroulsel>
 
-        <div v-if="allResultsReady" ref="resultsSection" class="mb-12">
+        <div v-if="allResultsReady"  ref="resultsSection" class="mb-12">
         <h2 class="mt-12 text-[var(--text-section-title-color)] text-3xl font-bold text-center mb-8" data-aos="fade-up">
             Resultados Calculados
         </h2>
-        <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mx-10">
+  
             <div 
-                v-for="(item, key, index) in pasteurizerResults" 
+                v-for="(item, key) in pasteurizerResults" 
                 :key="key"
-                class="bg-white border border-gray-400 shadow-md p-6 m-4 rounded-lg" 
-                data-aos="fade-up" 
-                :data-aos-delay="(index + 1) * 100"
+                
+                class="group bg-white rounded-xl shadow-lg border border-slate-200 p-5 flex flex-col h-full transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-2xl"
+                data-aos="fade-up"
+            >
+                <div class="mb-5">
+                <div 
+                    class="w-14 h-14 text-2xl rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 transition-colors group-hover:bg-indigo-100 group-hover:text-indigo-600"
+                    v-html="cardDetails[key].icon"
                 >
-                <h3 class="text-[var(--text-section-title-color)] font-semibold text-lg mb-2">
-                    {{ labels[key] }}
+                    </div>
+                </div>
+                
+                <div class="flex flex-col flex-grow">
+                <h3 class="text-xl font-bold text-slate-800 mb-2">
+                    {{ cardDetails[key].label }}
                 </h3>
-                <p class="text-4xl font-bold text-blue-600">
+                
+                <p class="text-slate-500 text-sm mb-6 flex-grow">
+                    {{ cardDetails[key].description }}
+                </p>
+
+                <p class="text-4xl sm:text-4xl font-extrabold text-blue-600">
                     {{ item.result }}
-                    <span class="text-xl font-medium text-gray-500">{{ item.measure }}</span>
+                    <span class="text-2xl font-medium text-slate-400 align-baseline">{{ item.measure }}</span>
                 </p>
                 </div>
             </div>
+
+            </div>
+
         </div>
 
 
