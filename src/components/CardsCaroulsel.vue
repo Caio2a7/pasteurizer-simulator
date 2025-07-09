@@ -38,7 +38,7 @@ const cardsButtonTransition = ref('');
 
 <template>
     <div class="relative flex justify-center items-center my-7">
-        <!-- <div class="absolute top-2 right-4 z-10 flex items-center gap-x-2">
+        <div class="absolute top-2 right-4 z-10 flex items-center gap-x-2">
             <button
                 type="button"
                 aria-label="Anterior"
@@ -73,7 +73,7 @@ const cardsButtonTransition = ref('');
                 <RightArrow class="w-5 h-5" />
             </button>
         </div>
-        <button
+        <!-- <button
                 type="button"
                 aria-label="Resetar"
                 @click="onReset"
