@@ -15,8 +15,7 @@ function toggleMenu() {
 
         <div class="flex items-center gap-4">
         <a href="/" class="flex items-center gap-4">
-            <!-- <img class="size-14" src="/icon.png">   
-          <div class="h-8 w-px bg-white/20"></div> -->
+            <img class="ms-2 size-14" src="/icon.png">   
 
           <div class="flex items-center gap-3">
              <!-- <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky-400"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/><path d="M8 4h8"/><path d="M10 20h4"/></svg> -->

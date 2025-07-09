@@ -2,55 +2,73 @@
   <div class="tech-page">
     <div class="container">
       <header class="main-header">
-        <h1>Tecnologias que Impulsionam o Projeto</h1>
+        <h1>Tecnologias Utilizadas</h1>
         <p>
-          Conheça as ferramentas e bibliotecas que tornam este projeto possível, desde o frontend até o backend e a implantação.
+          Conheça os frameworks e plataformas utilizadas para o desenvolvimento, produção e entrega desta aplicação.
         </p>
       </header>
 
-      <section class="tech-grid">
-        <div class="tech-card" style="--shadow-color: #41B883;">
-          <img src="@/assets/icons/vue.svg" alt="Vue.js">
-          <h3>Vue.js</h3>
-          <p>Framework JavaScript progressivo para a construção de interfaces de usuário interativas e reativas.</p>
+      <div class="tech-grid">
+        
+        <div class="tech-card" style="--brand-color: #42b883;">
+          <div class="card-content">
+            <img src="@/assets/icons/vue.svg" alt="Vue.js Icon" class="tech-icon">
+            <h3 class="tech-title">Vue.js</h3>
+            <p class="tech-description">O coração da interface. Framework progressivo que permite criar componentes reativos e uma experiência de usuário mais fluida e dinâmica.</p>
+          </div>
         </div>
 
-        <div class="tech-card" style="--shadow-color: #646CFF;">
-          <img src="@/assets/icons/vite.svg" alt="Vite">
-          <h3>Vite</h3>
-          <p>Ferramenta de construção de nova geração que oferece uma experiência de desenvolvimento extremamente rápida para aplicações web modernas.</p>
+        <div class="tech-card" style="--brand-color: #646cff;">
+          <div class="card-content">
+            <img src="@/assets/icons/vite.svg" alt="Vite Icon" class="tech-icon">
+            <h3 class="tech-title">Vite</h3>
+            <p class="tech-description">Ferramenta de build e bundle. Otimizado para desenvolvimento local com Hot Module Replacement (HMR) e otimizado para building da aplicação para produção.</p>
+          </div>
         </div>
 
-        <div class="tech-card" style="--shadow-color: #38B2AC;">
-          <img src="@/assets/icons/tailwindcss.svg" alt="Tailwind CSS">
-          <h3>Tailwind CSS</h3>
-          <p>Framework CSS utilitário que permite estilizar rapidamente interfaces sem sair do seu HTML.</p>
+        <div class="tech-card" style="--brand-color: #38b2ac;">
+          <div class="card-content">
+            <img src="@/assets/icons/tailwind.svg" alt="Tailwind CSS Icon" class="tech-icon">
+            <h3 class="tech-title">Tailwind CSS</h3>
+            <p class="tech-description">Framework CSS para estilização de interfaces complexas e responsivas sem sair do HTML.</p>
+          </div>
         </div>
 
-        <div class="tech-card" style="--shadow-color: #FFCA28;">
-          <img src="@/assets/icons/firestore.svg" alt="Firebase Firestore">
-          <h3>Firebase Firestore</h3>
-          <p>Banco de dados NoSQL flexível e escalável para armazenar e sincronizar dados para desenvolvimento web e mobile.</p>
+        <div class="tech-card" style="--brand-color: #000000;">
+          <div class="card-content">
+            <img src="@/assets/icons/vercel.svg" alt="Vercel Icon" class="tech-icon">
+            <h3 class="tech-title">Vercel</h3>
+            <p class="tech-description">Plataforma de deploy da aplicação. Permite a entrega contínua (CI/CD) com performance otimizada, garante entrega rápida e eficiente.</p>
+          </div>
         </div>
 
-        <div class="tech-card" style="--shadow-color: #F06095;">
-          <img src="@/assets/icons/pinia.svg" alt="Pinia">
-          <h3>Pinia</h3>
-          <p>A loja de estado intuitiva, de tipo seguro e flexível para Vue.js.</p>
+        <div class="tech-card" style="--brand-color: #ffca28;">
+          <div class="card-content">
+            <img src="@/assets/icons/firestore.svg" alt="Firestore Icon" class="tech-icon">
+            <h3 class="tech-title">Firestore</h3>
+            <p class="tech-description">Banco de dados NoSQL BaaS. Garante a persistência e sincronização de dados em tempo real de forma flexível e altamente escalável.</p>
+          </div>
+        </div>
+        
+        
+        
+        <div class="tech-card" style="--brand-color: #007acc;">
+            <div class="card-content">
+                <img src="@/assets/icons/typescript.svg" alt="TypeScript Icon" class="tech-icon">
+                <h3 class="tech-title">TypeScript</h3>
+                <p class="tech-description">A base para um código robusto. Adiciona tipagem estática ao JavaScript, prevenindo erros e melhorando a manutenibilidade do projeto.</p>
+            </div>
+        </div>
+        
+        <div class="tech-card" style="--brand-color: #f7d224;">
+          <div class="card-content">
+            <img src="@/assets/icons/pinia.svg" alt="Pinia Icon" class="tech-icon">
+            <h3 class="tech-title">Pinia</h3>
+            <p class="tech-description">Gerenciador de estado oficial para Vue. Leve, intuitivo e com total suporte a TypeScript, organiza os dados da nossa aplicação de forma centralizada com stores.</p>
+          </div>
         </div>
 
-        <div class="tech-card" style="--shadow-color: #007ACC;">
-          <img src="@/assets/icons/typescript.svg" alt="TypeScript">
-          <h3>TypeScript</h3>
-          <p>Superset tipado de JavaScript que melhora a escalabilidade e a manutenibilidade do código.</p>
-        </div>
-
-        <div class="tech-card" style="--shadow-color: #000000;">
-          <img src="@/assets/icons/vercel.svg" alt="Vercel">
-          <h3>Vercel</h3>
-          <p>Plataforma para implantação e escalabilidade de aplicações web com foco em velocidade e facilidade de uso.</p>
-        </div>
-      </section>
+      </div>
     </div>
   </div>
 </template>
@@ -65,24 +83,23 @@
   color: #212529;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
   line-height: 1.6;
-  padding-bottom: 3rem;
 }
 
 .container {
-  max-width: 1024px;
+  max-width: 1124px;
   margin: 0 auto;
   padding: 3rem 1rem;
 }
 
 .main-header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
 }
 
 .main-header h1 {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #0d6efd;
+  color: #2c3e50;
   margin: 0;
 }
 
@@ -90,66 +107,66 @@
   margin-top: 1rem;
   font-size: 1.125rem;
   color: #6c757d;
-  max-width: 800px;
+  max-width: 700px;
   margin-left: auto;
   margin-right: auto;
 }
 
+/* Alterado de Grid para Flexbox para melhor centralização */
 .tech-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 2rem;
-  margin-top: 2rem;
 }
 
 .tech-card {
   background-color: #ffffff;
-  padding: 1.5rem;
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  position: relative;
-}
-
-.tech-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: inherit;
-  box-shadow: 0 0 10px 5px var(--shadow-color);
-  opacity: 0;
-  transition: opacity 0.2s ease-in-out;
-  z-index: -1;
+  border-radius: 0.75rem; /* 12px */
+  border: 1px solid #e5e7eb;
+  /* Borda colorida no topo para um visual clean */
+  border-top: 4px solid var(--brand-color, #e5e7eb);
+  /* Sombra sutil e moderna */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  /* Flexbox para o card se comportar como uma coluna */
+  display: flex;
+  width: 320px;
 }
 
 .tech-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.07);
 }
 
-.tech-card:hover::before {
-  opacity: 1;
+.card-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza horizontalmente */
+  text-align: center; /* Centraliza o título */
 }
 
-.tech-card img {
-  max-width: 80px;
-  height: auto;
-  margin-bottom: 1rem;
+.tech-icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 1.5rem;
 }
 
-.tech-card h3 {
-  font-size: 1.5rem;
+.tech-title {
+  font-size: 1.25rem; /* 20px */
   font-weight: 600;
   color: #343a40;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
-.tech-card p {
-  font-size: 1rem;
+.tech-description {
+  font-size: 0.95rem;
   color: #6c757d;
+  /* Alinha o texto à esquerda para melhor leitura */
+  text-align: left;
+  /* Garante que o texto não estique demais */
+  max-width: 100%;
+  flex-grow: 1; /* Faz com que o parágrafo ocupe o espaço restante */
 }
 </style>

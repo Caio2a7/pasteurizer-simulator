@@ -7,7 +7,7 @@ import Footer from '@/components/Footer.vue';
 <template>
   <div>
     <Header />
-    <main class="min-h-[750px]">
+    <main class="mx-4 my-8 min-h-[750px]">
       <router-view />
     </main>
     <Footer />

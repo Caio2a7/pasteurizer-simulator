@@ -165,7 +165,6 @@ onMounted(() => {
 .main-header h1 {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #0d6efd;
   margin: 0;
 }
 
