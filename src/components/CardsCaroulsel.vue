@@ -32,7 +32,7 @@ const cardsButtonTransition = ref('');
 </script>
 
 <template>
-    <div class="relative flex justify-center items-center my-5">
+    <div class="relative flex justify-center items-center my-7">
         <div class="z-40 absolute right-5 top-3">
             <button @click="onBackCard()" :class="props.disabledButton === 'l' ? 'border-gray-400 shadow-lg mx-1 rounded-sm disabled bg-gray-400' : '' + `${cardsButtonTransition} button-transition border border-gray-400 shadow-lg mx-1 rounded-sm text-white font-bold bg-[#1E61D9]`">
                 <LeftArrow class="w-6 h-6" />

@@ -1,4 +1,4 @@
-<script lang="ts">
+<script setup lang="ts">
   // Lógica do seu componente aqui
 </script>
 

@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { PasteurizerSettings, Pasteurizer } from '@/services/Pasteurizer';
-import { ref, reactive, computed } from 'vue';
+import { ref, reactive, computed, onMounted, watch, nextTick } from 'vue';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import Card from '@/components/Card.vue';
 import CardsCaroulsel from '@/components/CardsCaroulsel.vue';
 import EthereumCard from '@/components/EthereumCard.vue';
 import Info from '@/components/icons/Info.vue';
 import Flow from '@/components/Flow.vue';
-
 import Section from '@/components/Section.vue'
 
 interface ResultValue {
@@ -39,6 +40,7 @@ const pasteurizerResults = reactive<PasteurizerResults>({
     requiredAreaToHeatExchanger:    {result: null, measure: 'm²'},
     heatLoss:                       {result: null, measure: 'kJ'}
 })
+
 
 const EnergyConsumedToHeatMilk = () => {
     const pasteurizer = new Pasteurizer(settings);
@@ -92,6 +94,56 @@ const handleForwardCard = () => {
     transitionName.value = 'slide-next';
     return actualCardPosition.value++;
 }
+
+// Ref para controlar a visibilidade da seção de resultados
+const allResultsReady = ref(false);
+
+// Ref para obter a referência do elemento DOM da seção de resultados
+const resultsSection = ref(null);
+
+// 2. INICIALIZAÇÃO DO AOS
+onMounted(() => {
+  AOS.init({
+    duration: 800, // Duração da animação
+    once: true,    // Animar apenas uma vez
+  });
+});
+
+// 3. O WATCHER
+watch(pasteurizerResults, (newValues) => {
+  // Verifica se todos os 'result' dentro do objeto são diferentes de null
+  const allFilled = Object.values(newValues).every(item => item.result !== null);
+
+  if (allFilled) {
+    // Se todos estiverem preenchidos, ativa a exibição da seção
+    allResultsReady.value = true;
+    
+    // nextTick garante que o DOM foi atualizado (a seção v-if é renderizada)
+    // antes de tentarmos rolar para ela.
+    nextTick(() => {
+      resultsSection.value?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+}, {
+  deep: true // 'deep: true' é crucial para observar mudanças em propriedades aninhadas
+});
+
+
+// --- Bloco de Simulação ---
+// Este bloco simula o preenchimento dos dados após 3 segundos.
+// No seu aplicativo real, você removeria isso e atualizaria os valores
+// a partir das interações do usuário na sua calculadora.
+setTimeout(() => {
+  pasteurizerResults.energyConsumedToHeatMilk.result = 4580;
+  pasteurizerResults.milkFlowRate.result = 15.5;
+  pasteurizerResults.steamInputFlowRate.result = 85.2;
+  pasteurizerResults.freezingWaterInputFlowRate.result = 250;
+  pasteurizerResults.requiredAreaToHeatExchanger.result = 12.7;
+  pasteurizerResults.heatLoss.result = 320;
+}, 3000);
+// --- Fim do Bloco de Simulação ---
+
+
 </script>
 
 <template>
@@ -100,7 +152,7 @@ const handleForwardCard = () => {
 
         </Section>
 
-        <Flow />
+        <!-- <Flow /> -->
 
         <CardsCaroulsel @backCard="handleBackCard()" @forwardCard="handleForwardCard()" :transitionName="transitionName" :disabledButton="disabledButton">
         <div class="flex justify-center min-w-[1000px] " :key="actualCardPosition">
@@ -298,6 +350,62 @@ const handleForwardCard = () => {
                 </Card> 
             </div>
         </CardsCaroulsel>
+
+        <div v-if="allResultsReady" ref="resultsSection" class="my-12">
+        <h2 class="text-3xl font-bold text-center mb-8" data-aos="fade-up">
+            Resultados Calculados
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div class="bg-white border border-gray-400 p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                <h3 class="font-semibold text-lg text-gray-700 mb-2">Energia para Aquecer</h3>
+                <p class="text-4xl font-bold text-blue-600">
+                    {{ pasteurizerResults.energyConsumedToHeatMilk.result }}
+                    <span class="text-xl font-medium text-gray-500">{{ pasteurizerResults.energyConsumedToHeatMilk.measure }}</span>
+                </p>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                <h3 class="font-semibold text-lg text-gray-700 mb-2">Vazão de Leite</h3>
+                <p class="text-4xl font-bold text-blue-600">
+                    {{ pasteurizerResults.milkFlowRate.result }}
+                    <span class="text-xl font-medium text-gray-500">{{ pasteurizerResults.milkFlowRate.measure }}</span>
+                </p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="300">
+                <h3 class="font-semibold text-lg text-gray-700 mb-2">Vazão de Vapor</h3>
+                <p class="text-4xl font-bold text-blue-600">
+                    {{ pasteurizerResults.steamInputFlowRate.result }}
+                    <span class="text-xl font-medium text-gray-500">{{ pasteurizerResults.steamInputFlowRate.measure }}</span>
+                </p>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="400">
+                <h3 class="font-semibold text-lg text-gray-700 mb-2">Vazão de Água Gelada</h3>
+                <p class="text-4xl font-bold text-blue-600">
+                    {{ pasteurizerResults.freezingWaterInputFlowRate.result }}
+                    <span class="text-xl font-medium text-gray-500">{{ pasteurizerResults.freezingWaterInputFlowRate.measure }}</span>
+                </p>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="500">
+                <h3 class="font-semibold text-lg text-gray-700 mb-2">Área de Troca de Calor</h3>
+                <p class="text-4xl font-bold text-blue-600">
+                    {{ pasteurizerResults.requiredAreaToHeatExchanger.result }}
+                    <span class="text-xl font-medium text-gray-500">{{ pasteurizerResults.requiredAreaToHeatExchanger.measure }}</span>
+                </p>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="600">
+                <h3 class="font-semibold text-lg text-gray-700 mb-2">Perda de Calor</h3>
+                <p class="text-4xl font-bold text-blue-600">
+                    {{ pasteurizerResults.heatLoss.result }}
+                    <span class="text-xl font-medium text-gray-500">{{ pasteurizerResults.heatLoss.measure }}</span>
+                </p>
+                </div>
+
+            </div>
+        </div>
 
 
     </div>
