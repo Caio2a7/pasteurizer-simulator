@@ -14,8 +14,8 @@ const onCalcButtonClick = () => {
 
 </script>
 <template>
-    <div class="w-full max-w-5xl mx-auto flex flex-col overflow-hidden rounded-2xl border border-gray-300 bg-white shadow-lg hover:shadow-2xl transition-shadow duration-300">
-        <div class="flex items-center gap-4 bg-gray-100/50 p-4  border-b border-gray-300 ">
+    <div class="xl:w-full xl:max-w-5xl mx-auto flex flex-col overflow-hidden rounded-2xl border border-gray-300 bg-white shadow-lg hover:shadow-2xl transition-shadow duration-300">
+        <div class="flex items-center gap-4 bg-gray-100/50 ps-4 p-2  border-b border-gray-300 ">
             <div class="grid place-items-center rounded-lg bg-blue-100 text-blue-600 ">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect width="16" height="20" x="4" y="2" rx="2"></rect>
@@ -31,7 +31,7 @@ const onCalcButtonClick = () => {
         
         <div class="p-6 space-y-6">
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 xl:grid-cols-2 xxl:grid-cols-3 gap-6">
                 <slot name="card-form">
 
                 </slot>
