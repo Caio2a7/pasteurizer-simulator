@@ -87,18 +87,6 @@ export class Pasteurizer{
         return Pasteurizer.floatRound(result, 2);
     }
     
-    // O: Vazão(V) - (L/min) Vazão do leite pasteurizado
-    public milkFlowRate():number{
-        // --- CONVERSÕES ---
-        const durationInMin:number = this.duration * 60;
-
-        // --- FORMULAS  ---
-        // 1º
-        const result:number = this.milkVolume / durationInMin;
-        
-        return Pasteurizer.floatRound(result, 2);
-    }
-
     // O: (kg/h) Vazão de entrada de vapor
     public steamInputFlowRate():number{
         // --- FORMULAS  ---
@@ -109,25 +97,6 @@ export class Pasteurizer{
 
         return Pasteurizer.floatRound(result, 2);
     }
-
-    // O: (kg/h) Vazão de entrada de água fria
-    public freezingWaterInputFlowRate():number{
-        // --- DEFINIDOS POR LÊLÊ ---
-        const waterInTemp:number = 2;
-        const waterOutTemp:number = 25;
-
-        // --- FORMULAS  ---
-        // 1º Calcular a Energia a Ser Removida do Leite
-        const milkTempDiff:number = this.milkHeatingTemp - this.milkFreezeTemp;
-        const energyConsumedToFreeze:number = this.milkMass * Pasteurizer.milkSpecificHeatTemp * milkTempDiff;
-        // 2º Calcular a Vazão Mássica de Água Fria
-        const waterTempDiff:number = waterOutTemp - waterInTemp;
-        const waterMass = (energyConsumedToFreeze) / (Pasteurizer.waterSpecificHeatTemp * waterTempDiff)
-        // 3º Calcular a Vazão de Entrada de Água Fria 
-        const result:number = waterMass / this.duration;
-        return Pasteurizer.floatRound(result, 2);
-    }
-
     // O: (m²) Área necessária do trocador de calor
     public requiredAreaToHeatExchanger():number{
         // --- CONVERSÕES ---
@@ -143,8 +112,8 @@ export class Pasteurizer{
 
         // --- FORMULAS  ---
         // 1º - Diferença de Temperatura Média Logarítmica (ΔTml​)
-        const deltaT1 = waterInTemp - this.milkHeatingTemp;
-        const deltaT2 = waterOutTemp - this.milkInputTemp;
+        const deltaT1 = Math.abs(waterInTemp - this.milkHeatingTemp);
+        const deltaT2 = Math.abs(waterOutTemp - this.milkInputTemp);
 
         let logTempDiffMean:number;
         if(deltaT1 === deltaT2){
@@ -172,4 +141,36 @@ export class Pasteurizer{
         const result:number = this.EnergyConsumedtoHeatMilk() * (1 - efficiencyInDecimal);
         return Pasteurizer.floatRound(result, 2);
     }
+
+    // O: Vazão(V) - (L/min) Vazão do leite pasteurizado
+    public milkFlowRate():number{
+        // --- CONVERSÕES ---
+        const durationInMin:number = this.duration * 60;
+
+        // --- FORMULAS  ---
+        // 1º
+        const result:number = this.milkVolume / durationInMin;
+        
+        return Pasteurizer.floatRound(result, 2);
+    }
+
+
+    // O: (kg/h) Vazão de entrada de água fria
+    public freezingWaterInputFlowRate():number{
+        // --- DEFINIDOS POR LÊLÊ ---
+        const waterInTemp:number = 2;
+        const waterOutTemp:number = 25;
+
+        // --- FORMULAS  ---
+        // 1º Calcular a Energia a Ser Removida do Leite
+        const milkTempDiff:number = this.milkHeatingTemp - this.milkFreezeTemp;
+        const energyConsumedToFreeze:number = this.milkMass * Pasteurizer.milkSpecificHeatTemp * milkTempDiff;
+        // 2º Calcular a Vazão Mássica de Água Fria
+        const waterTempDiff:number = waterOutTemp - waterInTemp;
+        const waterMass = (energyConsumedToFreeze) / (Pasteurizer.waterSpecificHeatTemp * waterTempDiff)
+        // 3º Calcular a Vazão de Entrada de Água Fria 
+        const result:number = waterMass / this.duration;
+        return Pasteurizer.floatRound(result, 2);
+    }
+
 }

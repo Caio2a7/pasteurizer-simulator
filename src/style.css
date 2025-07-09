@@ -3,13 +3,15 @@
 :root {
   --gradient-main: linear-gradient(102.7deg, rgba(185, 185, 241, .2), rgba(84, 132, 234, .2) 51.56%, rgba(58, 142, 137, .2));
 
+  --text-description-color: #606871;
+  --text-section-title-color: #2a2e3a;
+
+  /* color-scheme: light;*/
+
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light;
-
-  color: #111827;
   background-color: var(--gradient-main);
 
   font-synthesis: none;
@@ -27,7 +29,32 @@
     --tw-shadow-colored: var(--shadow-window-box-1), var(--shadow-window-box-2), var(--shadow-window-box-3), var(--shadow-window-box-4), var(--shadow-window-box-5);
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+h1 {
+  font-size: 2em;
+  line-height: 1.1;
+}
 
+h2 {
+  font-size: 1.6em;
+  line-height: 0.8;
+}
+
+h3{
+  font-size: 1em;
+  line-height: 0.8;
+}
+
+main{
+  margin: 30px;
+}
+.disabled-input{
+  background-color: #d0e4ff;
+}
 
 /* @media (prefers-color-scheme: light) {
   :root {
