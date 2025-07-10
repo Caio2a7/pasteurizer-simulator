@@ -3,12 +3,15 @@ import { PasteurizerSettings, Pasteurizer } from '@/services/Pasteurizer';
 import { ref, reactive, computed, onMounted, watch, nextTick } from 'vue';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import Calculator from '@/components/Calculator.vue';
 import Card from '@/components/Card.vue';
 import CardsCaroulsel from '@/components/CardsCaroulsel.vue';
 import EthereumCard from '@/components/EthereumCard.vue';
 import Info from '@/components/icons/Info.vue';
 import Flow from '@/components/Flow.vue';
-import Section from '@/components/Section.vue'
+import Section from '@/components/Section.vue';
+import CalcPath from '@/components/CalcPath.vue';
+
 
 interface ResultValue {
   result: number | null;
@@ -123,43 +126,49 @@ const cardDetails = {
   energyConsumedToHeatMilk: {
     label: 'Energia Consumida',
     description: 'Representa a quantidade total de energia térmica necessária para elevar a temperatura do leite até o nível de pasteurização.',
-    icon: `<p>⚡</p>`
-  },
-  milkFlowRate: {
-    label: 'Vazão de Leite',
-    description: 'Indica o volume de leite que o sistema consegue processar por minuto. Essencial para o dimensionamento da produção.',
-    icon: `<p>🥛</p>`
-  },
-  steamInputFlowRate: {
-    label: 'Vazão de Vapor',
-    description: 'A quantidade de vapor de alta temperatura necessária por hora para fornecer a energia ao trocador de calor.',
-    icon: `<p>💨</p>`
-  },
-  freezingWaterInputFlowRate: {
-    label: 'Vazão de Água Gelada',
-    description: 'O volume de água gelada utilizado para resfriar rapidamente o leite após a pasteurização, garantindo sua conservação.',
-    icon: `<p>❄️</p>`
-  },
-  requiredAreaToHeatExchanger: {
-    label: 'Área de Troca',
-    description: 'A área de superfície necessária no trocador de calor para que a transferência de energia térmica ocorra de forma eficiente.',
-    icon: `<p>↔️</p>`
+    icon: `<p>⚡</p>`,
+    calc: pasteurizerResults.energyConsumedToHeatMilk
   },
   heatLoss: {
     label: 'Perda de Calor',
     description: 'Energia dissipada para o ambiente durante o processo. Um valor menor indica maior eficiência energética do sistema.',
-    icon: `<p>🔥</p>`
-  }
+    icon: `<p>🔥</p>`,
+    calc: pasteurizerResults.heatLoss
+  },
+  steamInputFlowRate: {
+      label: 'Vazão de Vapor',
+      description: 'A quantidade de vapor de alta temperatura necessária por hora para fornecer a energia ao trocador de calor.',
+      icon: `<p>💨</p>`,
+    calc: pasteurizerResults.steamInputFlowRate
+  },
+  freezingWaterInputFlowRate: {
+    label: 'Vazão de Água Gelada',
+    description: 'O volume de água gelada utilizado para resfriar rapidamente o leite após a pasteurização, garantindo sua conservação.',
+    icon: `<p>❄️</p>`,
+    calc: pasteurizerResults.freezingWaterInputFlowRate
+    },
+    requiredAreaToHeatExchanger: {
+        label: 'Área de Troca',
+        description: 'A área de superfície necessária no trocador de calor para que a transferência de energia térmica ocorra de forma eficiente.',
+        icon: `<p>↔️</p>`,
+        calc: pasteurizerResults.requiredAreaToHeatExchanger
+    },
+    milkFlowRate: {
+    label: 'Vazão de Leite',
+    description: 'Indica o volume de leite que o sistema consegue processar por minuto. Essencial para o dimensionamento da produção.',
+    icon: `<p>🥛</p>`,
+    calc: pasteurizerResults.milkFlowRate
+    },
 };
 
-const labels = {
-  energyConsumedToHeatMilk: '⚡ Energia para Aquecer',
-  milkFlowRate: '🥛 Vazão de Leite',
-  steamInputFlowRate: '💨 Vazão de Vapor',
-  freezingWaterInputFlowRate: '❄️ Vazão de Água Gelada',
-  requiredAreaToHeatExchanger: '↔️ Área de Troca de Calor',
-  heatLoss: '🔥 Perda de Calor'
-};
+const handleResetValues = () => {
+    for (const key in pasteurizerResults) {
+        pasteurizerResults[key].result = null;
+    }
+    for (const key in settings){
+        settings[key] = null;
+    }
+}
 
 </script>
 
@@ -172,212 +181,228 @@ const labels = {
                 Saber mais sobre o projeto <span aria-hidden="true">→</span>
                 </a>
 
-                <div class="h-4 w-px bg-gray-300"></div>
+                <!-- <div class="h-4 w-px bg-gray-300"></div>
 
                 <a href="/sobre" class="text-sm text-gray-500 hover:text-gray-800 transition-colors duration-200">
                 Referências
-                </a>
+                </a> -->
             </div>
         </Section>
 
-        <!-- <Flow /> -->
+        <div class="flex flex-auto flex-col lg:flex-row lg:items-start md:flex-col sm:flex-row justify-center items-center md:items-center mt-5">
+            <CardsCaroulsel class="mx-4" data-aos="fade-up" duration="200" @backCard="handleBackCard()" @forwardCard="handleForwardCard()" @reset="handleResetValues()" :transitionName="transitionName" :disabledButton="disabledButton">
+                <div class="flex justify-center" :key="actualCardPosition">
+                <Calculator v-if="actualCardPosition === 0" @calc="EnergyConsumedToHeatMilk()" :calcResult="pasteurizerResults.energyConsumedToHeatMilk.result" :calcResultMeasure="pasteurizerResults.energyConsumedToHeatMilk.measure" cardTitle="⚡ Energia Total Gasta pelo Pasteurizador (kJ)"> 
+                        <template v-slot:card-form>
+                            <div>
+                                <label for="milkInputHeatingTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Entrada do Leite</label>
+                                <div class="relative">
+                                    <input v-model="settings.milkInputTemp" type="number" id="milkInputHeatingTemp" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 7°C">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
+                                </div>
+                            </div>
+            
+                            <div>
+                                <label for="milkHeatingTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Pasteurização/Aquecimento do Leite</label>
+                                <div class="relative">
+                                    <input v-model="settings.milkHeatingTemp" type="number" id="milkHeatingTemp" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 72°C">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
+                                </div>
+                            </div>
+            
+                            <div>
+                                <label for="milkInputVolume" class="block mb-2 text-sm font-medium text-gray-700 ">Volume de Entrada do Leite</label>
+                                <div class="relative">
+                                    <input v-model="settings.milkVolume" type="number" id="milkInputVolume" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 500L">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">L</span>
+                                </div>
+                            </div>
+            
+                            <div>
+                                <label for="efficiency" class="block mb-2 text-sm font-medium text-gray-700 ">Eficiência de Pasteurização</label>
+                                <div class="relative">
+                                    <input v-model="settings.efficiency" type="number" id="efficiency" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 75%">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">%</span>
+                                </div>
+                            </div>
+                        </template>
+                    </Calculator> 
+            
+                    <Calculator v-if="actualCardPosition === 1" @calc="heatLoss()" :calcResult="pasteurizerResults.heatLoss.result" :calcResultMeasure="pasteurizerResults.heatLoss.measure" cardTitle="Perda Térmica (kJ)"> 
+                        <template v-slot:card-form>
+                            <div>
+                                <label for="energytotalConsumedHeatLoss" class="block mb-2 text-sm font-medium text-gray-700 ">Energia Total Gasta pelo Pasteurizador</label>
+                                <div class="relative">
+                                    <input readonly :value="pasteurizerResults.energyConsumedToHeatMilk.result" type="number" id="energytotalConsumedHeatLoss" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 176422 kJ">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">kJ</span>
+                                </div>
+                            </div>
+            
+                            <div>
+                                <label for="heatingLossEfficiency" class="block mb-2 text-sm font-medium text-gray-700 ">Eficiência</label>
+                                <div class="relative">
+                                    <input v-model="settings.efficiency" type="number" id="heatingLossEfficiency" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 75%">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">%</span>
+                                </div>
+                            </div>
+                        </template>
+                    </Calculator> 
+            
+                    <Calculator v-if="actualCardPosition === 2" @calc="steamInputFlowRate()" :calcResult="pasteurizerResults.steamInputFlowRate.result" :calcResultMeasure="pasteurizerResults.steamInputFlowRate.measure" cardTitle="Vazão de Entrada de Vapor no Pasteurizador (kg/h)"> 
+                        <template v-slot:card-form>
+                            <div>
+                                <label for="energytotalConsumedSteamInput" class="block mb-2 text-sm font-medium text-gray-700 ">Energia Total Gasta pelo Pasteurizador</label>
+                                <div class="relative">
+                                    <input readonly :value="pasteurizerResults.energyConsumedToHeatMilk.result" type="number" id="energytotalConsumedSteamInput" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 176422 kJ">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">kJ</span>
+                                </div>
+                            </div>
+            
+                            <div>
+                                <label for="steamInputDuration" class="block mb-2 text-sm font-medium text-gray-700 ">Duração do Processo</label>
+                                <div class="relative">
+                                    <input v-model="settings.duration" type="number" id="steamInputDuration" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 1h">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">h</span>
+                                </div>
+                            </div>
+                        </template>
+                    </Calculator> 
+            
+                    <Calculator v-if="actualCardPosition === 3" @calc="freezingWaterInputFlowRate()" :calcResult="pasteurizerResults.freezingWaterInputFlowRate.result" :calcResultMeasure="pasteurizerResults.freezingWaterInputFlowRate.measure" cardTitle="Vazão de Entrada de Água Fria (kg/h')"> 
+                        <template v-slot:card-form>
+                            <div>
+                                <label for="milkHeatingTempFreezeFlow" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Pasteurização/Aquecimento do Leite</label>
+                                <div class="relative">
+                                    <input v-model="settings.milkHeatingTemp" type="number" id="milkHeatingTempFreezeFlow" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 72°C">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
+                                </div>
+                            </div>
+            
+                            <div>
+                                <label for="milkFreezingTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Resfriamento desejado do Leite</label>
+                                <div class="relative">
+                                    <input v-model="settings.milkFreezeTemp" type="number" id="milkFreezingTemp" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 4.5°C">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
+                                </div>
+                            </div>
+            
+                            <div class="col-span-2">
+                                <label for="milkVolumeFreezingFlow" class="block mb-2 text-sm font-medium text-gray-700 ">Volume de Entrada do Leite</label>
+                                <div class="relative">
+                                    <input v-model="settings.milkVolume" type="number" id="milkVolumeFreezingFlow" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 500L">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">L</span>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="waterInTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Entrada da Água</label>
+                                <div class="relative">
+                                    <input readonly value="2°C" type="number" id="waterInTemp" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 2°C">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
+                                </div>
+                            </div>
+            
+                            <div>
+                                <label for="waterOutTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Saída da Água Fria</label>
+                                <div class="relative">
+                                    <input readonly value="25°C" type="number" id="waterOutTemp" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 25°C">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
+                                </div>
+                            </div>
+                        </template>
+                    </Calculator> 
+            
+                    <Calculator v-if="actualCardPosition === 4" @calc="requiredAreaToHeatExchanger()" :calcResult="pasteurizerResults.requiredAreaToHeatExchanger.result" :calcResultMeasure="pasteurizerResults.requiredAreaToHeatExchanger.measure" cardTitle="Área Necessária do Trocador de Calor (m²)"> 
+                        <template v-slot:card-form>
+                            <div>
+                                <label for="energytotalConsumedRequiredArea" class="block mb-2 text-sm font-medium text-gray-700 ">Energia Total Gasta pelo Pasteurizador</label>
+                                <div class="relative">
+                                    <input readonly :value="pasteurizerResults.energyConsumedToHeatMilk.result" type="number" id="energytotalConsumedRequiredArea" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 176422 kJ">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">kJ</span>
+                                </div>
+                            </div>
+            
+                            <div>
+                                <label for="requiredAreaDuration" class="block mb-2 text-sm font-medium text-gray-700 ">Duração do Processo</label>
+                                <div class="relative">
+                                    <input v-model="settings.duration" type="number" id="requiredAreaDuration" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 1h">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">h</span>
+                                </div>
+                            </div>
+            
+                            <div>
+                                <label for="milkInputHeatingTempRequiredArea" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Entrada do Leite</label>
+                                <div class="relative">
+                                    <input v-model="settings.milkInputTemp" type="number" id="milkInputHeatingTempRequiredArea" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 7°C">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
+                                </div>
+                            </div>
+            
+                            <div>
+                                <label for="milkHeatingTempRequiredArea" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Pasteurização/Aquecimento do Leite</label>
+                                <div class="relative">
+                                    <input v-model="settings.milkHeatingTemp" type="number" id="milkHeatingTempRequiredArea" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 72°C">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
+                                </div>
+                            </div>
+            
+                            
+                            <div>
+                                <label for="waterInTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Entrada da Água</label>
+                                <div class="relative">
+                                    <input readonly :value="'2°C'" type="number" id="waterInTemp" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="85°C">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
+                                </div>
+                            </div>
+            
+                            <div>
+                                <label for="waterOutTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Saída da Água Fria</label>
+                                <div class="relative">
+                                    <input readonly value="25°C" type="number" id="waterOutTemp" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="70°C">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
+                                </div>
+                            </div>
+                        </template>
+                    </Calculator> 
+            
+                    <Calculator v-if="actualCardPosition === 5" @calc="milkFlowRate()" :calcResult="pasteurizerResults.milkFlowRate.result" :calcResultMeasure="pasteurizerResults.milkFlowRate.measure" cardTitle="Vazão de Saída do Leite Pasteurizado (L/min)"> 
+                        <template v-slot:card-form>
+                            <div>
+                                <label for="milkFlowRateDuration" class="block mb-2 text-sm font-medium text-gray-700 ">Duração do Processo</label>
+                                <div class="relative">
+                                    <input v-model="settings.duration" type="number" id="milkFlowRateDuration" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 1h">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">h</span>
+                                </div>
+                            </div>
+            
+                            <div>
+                                <label for="milkVolumeFlowRate" class="block mb-2 text-sm font-medium text-gray-700 ">Volume de Entrada do Leite</label>
+                                <div class="relative">
+                                    <input v-model="settings.milkVolume" type="number" id="milkVolumeFlowRate" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 500L">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">L</span>
+                                </div>
+                            </div>
+                        </template>
+                    </Calculator> 
+                </div>
+            </CardsCaroulsel>
 
-        <CardsCaroulsel data-aos="fade-up" duration="200" @backCard="handleBackCard()" @forwardCard="handleForwardCard()" :transitionName="transitionName" :disabledButton="disabledButton">
-            <div class="flex justify-center" :key="actualCardPosition">
-            <Card v-if="actualCardPosition === 0" @calc="EnergyConsumedToHeatMilk()" :calcResult="pasteurizerResults.energyConsumedToHeatMilk.result" :calcResultMeasure="pasteurizerResults.energyConsumedToHeatMilk.measure" cardTitle="Energia Total Gasta pelo Pasteurizador (kJ)"> 
-                    <template v-slot:card-form>
-                        <div>
-                            <label for="milkInputHeatingTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Entrada do Leite</label>
-                            <div class="relative">
-                                <input v-model="settings.milkInputTemp" type="number" id="milkInputHeatingTemp" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 7°C">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
-                            </div>
-                        </div>
-        
-                        <div>
-                            <label for="milkHeatingTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Pasteurização/Aquecimento do Leite</label>
-                            <div class="relative">
-                                <input v-model="settings.milkHeatingTemp" type="number" id="milkHeatingTemp" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 72°C">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
-                            </div>
-                        </div>
-        
-                        <div>
-                            <label for="milkInputVolume" class="block mb-2 text-sm font-medium text-gray-700 ">Volume de Entrada do Leite</label>
-                            <div class="relative">
-                                <input v-model="settings.milkVolume" type="number" id="milkInputVolume" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 500L">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">L</span>
-                            </div>
-                        </div>
-        
-                        <div>
-                            <label for="efficiency" class="block mb-2 text-sm font-medium text-gray-700 ">Eficiência de Pasteurização</label>
-                            <div class="relative">
-                                <input v-model="settings.efficiency" type="number" id="efficiency" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 75%">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">%</span>
-                            </div>
-                        </div>
-                    </template>
-                </Card> 
-        
-                <Card v-if="actualCardPosition === 1" @calc="heatLoss()" :calcResult="pasteurizerResults.heatLoss.result" :calcResultMeasure="pasteurizerResults.heatLoss.measure" cardTitle="Perda Térmica (kJ)"> 
-                    <template v-slot:card-form>
-                        <div>
-                            <label for="energytotalConsumedHeatLoss" class="block mb-2 text-sm font-medium text-gray-700 ">Energia Total Gasta pelo Pasteurizador</label>
-                            <div class="relative">
-                                <input readonly :value="pasteurizerResults.energyConsumedToHeatMilk.result" type="number" id="energytotalConsumedHeatLoss" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 176422 kJ">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">kJ</span>
-                            </div>
-                        </div>
-        
-                        <div>
-                            <label for="heatingLossEfficiency" class="block mb-2 text-sm font-medium text-gray-700 ">Eficiência</label>
-                            <div class="relative">
-                                <input v-model="settings.efficiency" type="number" id="heatingLossEfficiency" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 75%">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">%</span>
-                            </div>
-                        </div>
-                    </template>
-                </Card> 
-        
-                <Card v-if="actualCardPosition === 2" @calc="steamInputFlowRate()" :calcResult="pasteurizerResults.steamInputFlowRate.result" :calcResultMeasure="pasteurizerResults.steamInputFlowRate.measure" cardTitle="Vazão de Entrada de Vapor no Pasteurizador (kg/h)"> 
-                    <template v-slot:card-form>
-                        <div>
-                            <label for="energytotalConsumedSteamInput" class="block mb-2 text-sm font-medium text-gray-700 ">Energia Total Gasta pelo Pasteurizador</label>
-                            <div class="relative">
-                                <input readonly :value="pasteurizerResults.energyConsumedToHeatMilk.result" type="number" id="energytotalConsumedSteamInput" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 176422 kJ">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">kJ</span>
-                            </div>
-                        </div>
-        
-                        <div>
-                            <label for="steamInputDuration" class="block mb-2 text-sm font-medium text-gray-700 ">Duração do Processo</label>
-                            <div class="relative">
-                                <input v-model="settings.duration" type="number" id="steamInputDuration" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 1h">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">h</span>
-                            </div>
-                        </div>
-                    </template>
-                </Card> 
-        
-                <Card v-if="actualCardPosition === 3" @calc="freezingWaterInputFlowRate()" :calcResult="pasteurizerResults.freezingWaterInputFlowRate.result" :calcResultMeasure="pasteurizerResults.freezingWaterInputFlowRate.measure" cardTitle="Vazão de Entrada de Água Fria (kg/h')"> 
-                    <template v-slot:card-form>
-                        <div>
-                            <label for="milkHeatingTempFreezeFlow" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Pasteurização/Aquecimento do Leite</label>
-                            <div class="relative">
-                                <input v-model="settings.milkHeatingTemp" type="number" id="milkHeatingTempFreezeFlow" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 72°C">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
-                            </div>
-                        </div>
-        
-                        <div>
-                            <label for="milkFreezingTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Resfriamento desejado do Leite</label>
-                            <div class="relative">
-                                <input v-model="settings.milkFreezeTemp" type="number" id="milkFreezingTemp" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 4.5°C">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
-                            </div>
-                        </div>
-        
-                        <div class="col-span-2">
-                            <label for="milkVolumeFreezingFlow" class="block mb-2 text-sm font-medium text-gray-700 ">Volume de Entrada do Leite</label>
-                            <div class="relative">
-                                <input v-model="settings.milkVolume" type="number" id="milkVolumeFreezingFlow" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 500L">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">L</span>
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <label for="waterInTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Entrada da Água</label>
-                            <div class="relative">
-                                <input readonly value="2°C" type="number" id="waterInTemp" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 2°C">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
-                            </div>
-                        </div>
-        
-                        <div>
-                            <label for="waterOutTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Saída da Água Fria</label>
-                            <div class="relative">
-                                <input readonly value="25°C" type="number" id="waterOutTemp" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 25°C">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
-                            </div>
-                        </div>
-                    </template>
-                </Card> 
-        
-                <Card v-if="actualCardPosition === 4" @calc="requiredAreaToHeatExchanger()" :calcResult="pasteurizerResults.requiredAreaToHeatExchanger.result" :calcResultMeasure="pasteurizerResults.requiredAreaToHeatExchanger.measure" cardTitle="Área Necessária do Trocador de Calor (m²)"> 
-                    <template v-slot:card-form>
-                        <div>
-                            <label for="energytotalConsumedRequiredArea" class="block mb-2 text-sm font-medium text-gray-700 ">Energia Total Gasta pelo Pasteurizador</label>
-                            <div class="relative">
-                                <input readonly :value="pasteurizerResults.energyConsumedToHeatMilk.result" type="number" id="energytotalConsumedRequiredArea" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 176422 kJ">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">kJ</span>
-                            </div>
-                        </div>
-        
-                        <div>
-                            <label for="requiredAreaDuration" class="block mb-2 text-sm font-medium text-gray-700 ">Duração do Processo</label>
-                            <div class="relative">
-                                <input v-model="settings.duration" type="number" id="requiredAreaDuration" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 1h">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">h</span>
-                            </div>
-                        </div>
-        
-                        <div>
-                            <label for="milkInputHeatingTempRequiredArea" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Entrada do Leite</label>
-                            <div class="relative">
-                                <input v-model="settings.milkInputTemp" type="number" id="milkInputHeatingTempRequiredArea" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 7°C">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
-                            </div>
-                        </div>
-        
-                        <div>
-                            <label for="milkHeatingTempRequiredArea" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Pasteurização/Aquecimento do Leite</label>
-                            <div class="relative">
-                                <input v-model="settings.milkHeatingTemp" type="number" id="milkHeatingTempRequiredArea" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 72°C">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
-                            </div>
-                        </div>
-        
-                        
-                        <div>
-                            <label for="waterInTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Entrada da Água</label>
-                            <div class="relative">
-                                <input readonly :value="'2°C'" type="number" id="waterInTemp" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="85°C">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
-                            </div>
-                        </div>
-        
-                        <div>
-                            <label for="waterOutTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Saída da Água Fria</label>
-                            <div class="relative">
-                                <input readonly value="25°C" type="number" id="waterOutTemp" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="70°C">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
-                            </div>
-                        </div>
-                    </template>
-                </Card> 
-        
-                <Card v-if="actualCardPosition === 5" @calc="milkFlowRate()" :calcResult="pasteurizerResults.milkFlowRate.result" :calcResultMeasure="pasteurizerResults.milkFlowRate.measure" cardTitle="Vazão de Saída do Leite Pasteurizado (L/min)"> 
-                    <template v-slot:card-form>
-                        <div>
-                            <label for="milkFlowRateDuration" class="block mb-2 text-sm font-medium text-gray-700 ">Duração do Processo</label>
-                            <div class="relative">
-                                <input v-model="settings.duration" type="number" id="milkFlowRateDuration" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 1h">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">h</span>
-                            </div>
-                        </div>
-        
-                        <div>
-                            <label for="milkVolumeFlowRate" class="block mb-2 text-sm font-medium text-gray-700 ">Volume de Entrada do Leite</label>
-                            <div class="relative">
-                                <input v-model="settings.milkVolume" type="number" id="milkVolumeFlowRate" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 500L">
-                                <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">L</span>
-                            </div>
-                        </div>
-                    </template>
-                </Card> 
-            </div>
-        </CardsCaroulsel>
+            <Card class="xl:max-h-95 sm:max-h-100 mt-12 pb-3" cardTitle="Resultados Calculados">
+                <template v-slot:card-body> 
+                    <div
+                        v-for="(card, key) in cardDetails"
+                        :key="key"
+                        :class="[
+                            'flex flex-col justify-start items-start rounded-lg border border-dashed border-gray-400 m-0 p-4 mt-2 mx-2 text-center',
+                            card.calc.result === null ||  Number.isNaN(card.calc.result) ? 'bg-gray-50/50 ' : 'bg-blue-600 text-white'
+                        ]">
+                        <h4 class="['text-sm font-medium tracking-wider', 
+                        card.calc.result === null ? 'text-gray-600' : 'text-white' ]">{{ card.label }}</h4>
+                        <p class="mt-2 font-bold"> {{ card.calc.result ? card.calc.result : ''}} <span> {{ card.calc.measure }} </span></p>
+                    </div>
+                </template>
+            </Card>
+        </div>
 
         <div v-if="allResultsReady"  ref="resultsSection" class="mb-12">
         <h2 class="mt-12 text-[var(--text-section-title-color)] text-3xl font-bold text-center mb-8" data-aos="fade-up">
@@ -410,38 +435,12 @@ const labels = {
                 </p>
 
                 <p class="text-4xl sm:text-4xl font-extrabold text-blue-600">
-                    {{ item.result }}
+                    {{ item.result ? item.result : '' }}
                     <span class="text-2xl font-medium text-slate-400 align-baseline">{{ item.measure }}</span>
                 </p>
                 </div>
             </div>
-
             </div>
-
         </div>
-
-
     </div>
 </template>
-
-            <!-- <template v-slot:card-header>
-                <div class  ="flex items-center justify-start p-3">
-                    <div class="me-2">
-                        <Info class="w-6 h-6"/>
-                    </div>
-                    <div>
-                        <h3 class="font-bold">Informações</h3>
-                    </div>
-                </div>
-            </template>
-            <template   v-slot:card-body>
-                <div    class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div class="p-3 text-[var(--text-p-color)]">
-                        <label for="metro" class="block mb-2 text-sm font-medium">Metro</label>
-                        <div class="relative">
-                            <input type="number" id="metro" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 10.5">
-                            <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 dark:text-gray-400">m</span>
-                        </div>
-                    </div> 
-                </div>
-            </template  > -->

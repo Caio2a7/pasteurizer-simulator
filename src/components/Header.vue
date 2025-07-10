@@ -48,7 +48,7 @@ function toggleMenu() {
       <div class="flex items-center gap-4">
         <button class="bg-[#212f42] group relative hidden overflow-hidden rounded-lg border border-white-400 shadow-sm px-5 py-2.5 text-sm font-bold text-white transition-transform duration-300 hover:scale-105 lg:block">
           <span class="absolute -inset-full top-0 block -translate-x-full -skew-x-12 transform bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:translate-x-full group-hover:duration-1000"></span>
-          Entrar
+          Calcular
         </button>
 
         <button @click="toggleMenu" class="rounded-md p-2 text-gray-300 transition hover:bg-white/10 hover:text-white lg:hidden">
@@ -80,7 +80,7 @@ function toggleMenu() {
         <div class="px-8 py-4">
             <button class="group relative w-full overflow-hidden rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 px-5 py-3 font-bold text-white shadow-md transition-transform duration-300 hover:scale-105">
                 <span class="absolute -inset-full top-0 block -translate-x-full -skew-x-12 transform bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:translate-x-full group-hover:duration-1000"></span>
-                Entrar
+                Calcular
             </button>
         </div>
       </div>

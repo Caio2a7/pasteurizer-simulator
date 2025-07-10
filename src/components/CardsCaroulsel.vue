@@ -29,7 +29,6 @@ const onForwardCard = () => {
     }, 400); 
 }
 const onResetCard = () => {
-    // Emite um evento 'reset' que o componente pai pode ouvir
     emit('reset');
 };
 const cardsButtonTransition = ref('');
@@ -38,7 +37,7 @@ const cardsButtonTransition = ref('');
 
 <template>
     <div class="relative flex justify-center items-center mt-0 mb-7 pt-12">
-        <div class="absolute right-4 top-2 md:top-14 sm:top-2 z-10 flex items-center gap-x-2">
+        <div class="absolute right-4 top-2 xl:top-14 lg:top-2 md:top-2 sm:top-2 z-10 flex items-center gap-x-2">
             <button
                 type="button"
                 aria-label="Anterior"
@@ -72,18 +71,18 @@ const cardsButtonTransition = ref('');
             >
                 <RightArrow class="w-5 h-5" />
             </button>
+            <button
+                    type="button"
+                    aria-label="Resetar"
+                    @click="onResetCard()"
+                    class="
+                        border border-gray-400 shadow-sm flex items-center justify-center w-8 h-8 rounded-full transition-all duration-300
+                    bg-white/60 text-slate-700 backdrop-blur-sm  hover:bg-blue-600 hover:text-white hover:shadow-lg hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2
+                    "
+                >
+                    <span>&#x21bb;</span>
+                </button>
         </div>
-        <!-- <button
-                type="button"
-                aria-label="Resetar"
-                @click="onReset"
-                class="
-                    absolute top-4 -right-4 flex items-center justify-center rounded-full shadow-lg transition-all duration-300
-                    bg-blue-600 text-white w-9 h-9 md:w-11 md:h-11 md:-right-5 hover:bg-blue-700 hover:scale-110 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2
-                "
-            >
-                <span>&#x21bb;</span>
-            </button> -->
         <Transition :name="props.transitionName" mode="out-in">
             <slot>
                 
