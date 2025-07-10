@@ -174,7 +174,7 @@ const handleResetValues = () => {
 
 <template>
     <div class="flex flex-col items-center min-h-screen">
-        <Section title="O que é um Pasteurizador ?" description="O pasteurizador é um equipamento que aquece alimentos a uma temperatura controlada e depois os resfria para eliminar microrganismos e estender a vida útil do produto com segurança. Este sistema simulará seu desempenho calculando: Energia total gasta (kJ), Vazão do leite (L/min), Vazão de vapor e de água fria (kg/h), Área do trocador de calor (m²) e as Perdas térmicas (kJ).">
+        <Section data-aos="fade-up" duration="300" title="O que é um Pasteurizador ?" description="O pasteurizador é um equipamento que aquece alimentos a uma temperatura controlada e depois os resfria para eliminar microrganismos e estender a vida útil do produto com segurança. Este sistema simulará seu desempenho calculando: Energia total gasta (kJ), Vazão do leite (L/min), Vazão de vapor e de água fria (kg/h), Área do trocador de calor (m²) e as Perdas térmicas (kJ).">
 
             <div class="mt-8 flex items-start justify-start gap-x-6">
                 <a href="/sobre" class=" inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors duration-200">
@@ -387,7 +387,7 @@ const handleResetValues = () => {
                 </div>
             </CardsCaroulsel>
 
-            <Card class="xl:max-h-95 sm:max-h-100 mt-12 pb-3" cardTitle="Resultados Calculados">
+            <Card class="xl:max-h-95 sm:max-h-100 mt-12 pb-3" data-aos="fade-up" duration="300" cardTitle="Resultados Calculados">
                 <template v-slot:card-body> 
                     <div
                         v-for="(card, key) in cardDetails"
