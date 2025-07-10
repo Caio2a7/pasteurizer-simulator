@@ -228,7 +228,7 @@ const handleResetValues = () => {
                         </template>
                     </Calculator> 
             
-                    <Calculator v-if="actualCardPosition === 1" @calc="heatLoss()" :calcResult="pasteurizerResults.heatLoss.result" :calcResultMeasure="pasteurizerResults.heatLoss.measure" cardTitle="Perda Térmica (kJ)"> 
+                    <Calculator v-if="actualCardPosition === 1" @calc="heatLoss()" :calcResult="pasteurizerResults.heatLoss.result" :calcResultMeasure="pasteurizerResults.heatLoss.measure" cardTitle="🔥 Perda Térmica (kJ)"> 
                         <template v-slot:card-form>
                             <div>
                                 <label for="energytotalConsumedHeatLoss" class="block mb-2 text-sm font-medium text-gray-700 ">Energia Total Gasta pelo Pasteurizador</label>
@@ -248,7 +248,7 @@ const handleResetValues = () => {
                         </template>
                     </Calculator> 
             
-                    <Calculator v-if="actualCardPosition === 2" @calc="steamInputFlowRate()" :calcResult="pasteurizerResults.steamInputFlowRate.result" :calcResultMeasure="pasteurizerResults.steamInputFlowRate.measure" cardTitle="Vazão de Entrada de Vapor no Pasteurizador (kg/h)"> 
+                    <Calculator v-if="actualCardPosition === 2" @calc="steamInputFlowRate()" :calcResult="pasteurizerResults.steamInputFlowRate.result" :calcResultMeasure="pasteurizerResults.steamInputFlowRate.measure" cardTitle="💨 Vazão de Entrada de Vapor no Pasteurizador (kg/h)"> 
                         <template v-slot:card-form>
                             <div>
                                 <label for="energytotalConsumedSteamInput" class="block mb-2 text-sm font-medium text-gray-700 ">Energia Total Gasta pelo Pasteurizador</label>
@@ -268,7 +268,7 @@ const handleResetValues = () => {
                         </template>
                     </Calculator> 
             
-                    <Calculator v-if="actualCardPosition === 3" @calc="freezingWaterInputFlowRate()" :calcResult="pasteurizerResults.freezingWaterInputFlowRate.result" :calcResultMeasure="pasteurizerResults.freezingWaterInputFlowRate.measure" cardTitle="Vazão de Entrada de Água Fria (kg/h')"> 
+                    <Calculator v-if="actualCardPosition === 3" @calc="freezingWaterInputFlowRate()" :calcResult="pasteurizerResults.freezingWaterInputFlowRate.result" :calcResultMeasure="pasteurizerResults.freezingWaterInputFlowRate.measure" cardTitle="❄️ Vazão de Entrada de Água Fria (kg/h')"> 
                         <template v-slot:card-form>
                             <div>
                                 <label for="milkHeatingTempFreezeFlow" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Pasteurização/Aquecimento do Leite</label>
@@ -312,7 +312,7 @@ const handleResetValues = () => {
                         </template>
                     </Calculator> 
             
-                    <Calculator v-if="actualCardPosition === 4" @calc="requiredAreaToHeatExchanger()" :calcResult="pasteurizerResults.requiredAreaToHeatExchanger.result" :calcResultMeasure="pasteurizerResults.requiredAreaToHeatExchanger.measure" cardTitle="Área Necessária do Trocador de Calor (m²)"> 
+                    <Calculator v-if="actualCardPosition === 4" @calc="requiredAreaToHeatExchanger()" :calcResult="pasteurizerResults.requiredAreaToHeatExchanger.result" :calcResultMeasure="pasteurizerResults.requiredAreaToHeatExchanger.measure" cardTitle="↔️ Área Necessária do Trocador de Calor (m²)"> 
                         <template v-slot:card-form>
                             <div>
                                 <label for="energytotalConsumedRequiredArea" class="block mb-2 text-sm font-medium text-gray-700 ">Energia Total Gasta pelo Pasteurizador</label>
@@ -365,7 +365,7 @@ const handleResetValues = () => {
                         </template>
                     </Calculator> 
             
-                    <Calculator v-if="actualCardPosition === 5" @calc="milkFlowRate()" :calcResult="pasteurizerResults.milkFlowRate.result" :calcResultMeasure="pasteurizerResults.milkFlowRate.measure" cardTitle="Vazão de Saída do Leite Pasteurizado (L/min)"> 
+                    <Calculator v-if="actualCardPosition === 5" @calc="milkFlowRate()" :calcResult="pasteurizerResults.milkFlowRate.result" :calcResultMeasure="pasteurizerResults.milkFlowRate.measure" cardTitle="🥛 Vazão de Saída do Leite Pasteurizado (L/min)"> 
                         <template v-slot:card-form>
                             <div>
                                 <label for="milkFlowRateDuration" class="block mb-2 text-sm font-medium text-gray-700 ">Duração do Processo</label>
