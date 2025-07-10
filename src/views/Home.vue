@@ -271,50 +271,6 @@ const handleResetValues = () => {
                     <Calculator v-if="actualCardPosition === 3" @calc="freezingWaterInputFlowRate()" :calcResult="pasteurizerResults.freezingWaterInputFlowRate.result" :calcResultMeasure="pasteurizerResults.freezingWaterInputFlowRate.measure" cardTitle="❄️ Vazão de Entrada de Água Fria (kg/h')"> 
                         <template v-slot:card-form>
                             <div>
-                                <label for="milkHeatingTempFreezeFlow" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Pasteurização/Aquecimento do Leite</label>
-                                <div class="relative">
-                                    <input v-model="settings.milkHeatingTemp" type="number" id="milkHeatingTempFreezeFlow" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 72°C">
-                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
-                                </div>
-                            </div>
-            
-                            <div>
-                                <label for="milkFreezingTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Resfriamento desejado do Leite</label>
-                                <div class="relative">
-                                    <input v-model="settings.milkFreezeTemp" type="number" id="milkFreezingTemp" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 4.5°C">
-                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
-                                </div>
-                            </div>
-            
-                            <div class="col-span-2">
-                                <label for="milkVolumeFreezingFlow" class="block mb-2 text-sm font-medium text-gray-700 ">Volume de Entrada do Leite</label>
-                                <div class="relative">
-                                    <input v-model="settings.milkVolume" type="number" id="milkVolumeFreezingFlow" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 500L">
-                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">L</span>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <label for="waterInTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Entrada da Água</label>
-                                <div class="relative">
-                                    <input readonly value="2°C" type="number" id="waterInTemp" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 2°C">
-                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
-                                </div>
-                            </div>
-            
-                            <div>
-                                <label for="waterOutTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Saída da Água Fria</label>
-                                <div class="relative">
-                                    <input readonly value="25°C" type="number" id="waterOutTemp" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 25°C">
-                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
-                                </div>
-                            </div>
-                        </template>
-                    </Calculator> 
-            
-                    <Calculator v-if="actualCardPosition === 4" @calc="requiredAreaToHeatExchanger()" :calcResult="pasteurizerResults.requiredAreaToHeatExchanger.result" :calcResultMeasure="pasteurizerResults.requiredAreaToHeatExchanger.measure" cardTitle="↔️ Área Necessária do Trocador de Calor (m²)"> 
-                        <template v-slot:card-form>
-                            <div>
                                 <label for="energytotalConsumedRequiredArea" class="block mb-2 text-sm font-medium text-gray-700 ">Energia Total Gasta pelo Pasteurizador</label>
                                 <div class="relative">
                                     <input readonly :value="pasteurizerResults.energyConsumedToHeatMilk.result" type="number" id="energytotalConsumedRequiredArea" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 176422 kJ">
@@ -359,6 +315,50 @@ const handleResetValues = () => {
                                 <label for="waterOutTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Saída da Água Fria</label>
                                 <div class="relative">
                                     <input readonly value="25°C" type="number" id="waterOutTemp" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="70°C">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
+                                </div>
+                            </div>
+                        </template>
+                    </Calculator> 
+            
+                    <Calculator v-if="actualCardPosition === 4" @calc="requiredAreaToHeatExchanger()" :calcResult="pasteurizerResults.requiredAreaToHeatExchanger.result" :calcResultMeasure="pasteurizerResults.requiredAreaToHeatExchanger.measure" cardTitle="↔️ Área Necessária do Trocador de Calor (m²)"> 
+                        <template v-slot:card-form>
+                            <div>
+                                <label for="milkHeatingTempFreezeFlow" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Pasteurização/Aquecimento do Leite</label>
+                                <div class="relative">
+                                    <input v-model="settings.milkHeatingTemp" type="number" id="milkHeatingTempFreezeFlow" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 72°C">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
+                                </div>
+                            </div>
+            
+                            <div>
+                                <label for="milkFreezingTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Resfriamento desejado do Leite</label>
+                                <div class="relative">
+                                    <input v-model="settings.milkFreezeTemp" type="number" id="milkFreezingTemp" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 4.5°C">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
+                                </div>
+                            </div>
+            
+                            <div class="xl:col-span-2 md:col-span-1">
+                                <label for="milkVolumeFreezingFlow" class="block mb-2 text-sm font-medium text-gray-700 ">Volume de Entrada do Leite</label>
+                                <div class="relative">
+                                    <input v-model="settings.milkVolume" type="number" id="milkVolumeFreezingFlow" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 500L">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">L</span>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="waterInTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Entrada da Água</label>
+                                <div class="relative">
+                                    <input readonly value="2°C" type="number" id="waterInTemp" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 2°C">
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
+                                </div>
+                            </div>
+            
+                            <div>
+                                <label for="waterOutTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Saída da Água Fria</label>
+                                <div class="relative">
+                                    <input readonly value="25°C" type="number" id="waterOutTemp" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 25°C">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
                                 </div>
                             </div>
