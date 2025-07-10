@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { PasteurizerSettings, Pasteurizer } from '@/services/Pasteurizer';
+import { usePasteurizerStorage } from '../stores/pasteurizerStore';
+
 import { ref, reactive, computed, onMounted, watch, nextTick } from 'vue';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+
 import Calculator from '@/components/Calculator.vue';
 import Card from '@/components/Card.vue';
 import CardsCaroulsel from '@/components/CardsCaroulsel.vue';
@@ -11,7 +14,6 @@ import Info from '@/components/icons/Info.vue';
 import Flow from '@/components/Flow.vue';
 import Section from '@/components/Section.vue';
 import CalcPath from '@/components/CalcPath.vue';
-
 
 interface ResultValue {
   result: number | null;
@@ -27,6 +29,8 @@ interface PasteurizerResults {
   heatLoss: ResultValue;
 }
 
+const pasteurizerStore = usePasteurizerStorage();
+
 const settings:PasteurizerSettings = reactive<PasteurizerSettings>({
     milkInputTemp: 7,
     milkHeatingTemp: 72,
@@ -37,13 +41,23 @@ const settings:PasteurizerSettings = reactive<PasteurizerSettings>({
 })
 const pasteurizerResults = reactive<PasteurizerResults>({
     energyConsumedToHeatMilk:       {result: null, measure: 'kJ'},
-    milkFlowRate:                   {result: null, measure: 'L/min'},
+    heatLoss:                       {result: null, measure: 'kJ'},
     steamInputFlowRate:             {result: null, measure: 'kg/h'},
     freezingWaterInputFlowRate:     {result: null, measure: 'kg/h'},
     requiredAreaToHeatExchanger:    {result: null, measure: 'm²'},
-    heatLoss:                       {result: null, measure: 'kJ'}
+    milkFlowRate:                   {result: null, measure: 'L/min'},
 })
+console.log(pasteurizerResults.energyConsumedToHeatMilk)
+Object.assign(settings, pasteurizerStore.settings);
+Object.assign(pasteurizerResults, pasteurizerStore.results);
+console.log(pasteurizerResults.energyConsumedToHeatMilk)
+watch(settings, (newSettings) => {
+    pasteurizerStore.updateSettings(newSettings)
+}, { deep: true})
 
+watch(pasteurizerResults, (newResults) => {
+    pasteurizerStore.updateResults(newResults)
+}, { deep: true})
 
 const EnergyConsumedToHeatMilk = () => {
     const pasteurizer = new Pasteurizer(settings);
@@ -154,14 +168,15 @@ const cardDetails = {
         calc: pasteurizerResults.requiredAreaToHeatExchanger
     },
     milkFlowRate: {
-    label: 'Vazão de Leite',
-    description: 'Indica o volume de leite que o sistema consegue processar por minuto. Essencial para o dimensionamento da produção.',
-    icon: `<p>🥛</p>`,
-    calc: pasteurizerResults.milkFlowRate
+        label: 'Vazão de Leite',
+        description: 'Indica o volume de leite que o sistema consegue processar por minuto. Essencial para o dimensionamento da produção.',
+        icon: `<p>🥛</p>`,
+        calc: pasteurizerResults.milkFlowRate
     },
 };
 
 const handleResetValues = () => {
+    pasteurizerStore.resetStore();
     for (const key in pasteurizerResults) {
         pasteurizerResults[key].result = null;
     }
