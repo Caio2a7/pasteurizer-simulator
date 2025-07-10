@@ -61,19 +61,19 @@ function toggleMenu() {
 
     <div v-if="isMenuOpen" class="border-t border-white/10 bg-gray-900/95 lg:hidden" @click.self="isMenuOpen = false">
       <div class="space-y-1 px-2 pb-3 pt-2">
-        <a href="#" class="flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/10 hover:text-white">
+        <a href="/" class="flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/10 hover:text-white">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
           Início
         </a>
-        <a href="#" class="flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/10 hover:text-white">
+        <a href="/sobre" class="flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/10 hover:text-white">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
           Sobre
         </a>
-        <a href="#" class="flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/10 hover:text-white">
+        <a href="/tech" class="flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/10 hover:text-white">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
           Tecnologias
         </a>
-        <a href="#" class="flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/10 hover:text-white">
+        <a href="/faq" class="flex items-center gap-3 rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-white/10 hover:text-white">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
           FAQ
         </a>

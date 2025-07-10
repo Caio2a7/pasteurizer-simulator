@@ -28,7 +28,7 @@ onMounted(() => {
 
 <template>
   <div class="about-page">
-    <div class="container">
+    <div class="container px-0">
       
       <header class="main-header">
         <h1>O Coração do Pasteurizador: Uma Análise Detalhada</h1>
@@ -60,8 +60,24 @@ onMounted(() => {
           <div class="variables-section">
             <h4 class="variables-title">Variáveis e Passos:</h4>
             <ul class="variable-list">
-              <li><strong>Massa do Leite (<span class="formula-inline">m_{\text{leite}}</span>):</strong> Primeiro, convertemos o volume de litros para metros cúbicos ($V_{\text{m³}} = V_{\text{L}} / 1000$) e depois calculamos a massa. <br><span class="formula-inline">m_{\text{leite}} (\text{kg}) = V_{\text{leite}} (\text{m³}) \cdot \rho_{\text{leite}} (\text{kg/m³})</span></li>
-              <li><strong>Calor Específico do Leite (<span class="formula-inline">c_{\text{leite}}</span>):</strong> Uma constante que representa a energia necessária para aquecer 1 kg de leite em 1°C. (Valor típico: ~3.93 kJ/kg°C).</li>
+              <li>
+                <strong>Massa do Leite 
+                  (<span class="formula-inline">m_{\text{leite}}</span>):
+                </strong>
+                 Primeiro, convertemos o volume de litros para metros cúbicos 
+                
+                  <span class="formula-inline">V_{\text{m³}} = V_{\text{L}} / {\text{1000}} </span>
+
+                 e depois calculamos a massa. 
+                 <br><span class="formula-inline">
+                  m_{\text{leite}} (\text{kg}) = V_{\text{leite}} (\text{m³}) \cdot \rho_{\text{leite}} (\text{kg/m³})
+                </span>
+              </li>
+              <li><strong>Calor Específico do Leite (<span class="formula-inline">
+                  c_{\text{leite}}</span>):
+                </strong> 
+                Uma constante que representa a energia necessária para aquecer 1 kg de leite em 1°C. (Valor típico: ~3.93 kJ/kg°C).
+              </li>
               <li><strong>Variação de Temperatura (<span class="formula-inline">\Delta T</span>):</strong> A diferença entre a temperatura final (pasteurização) e a inicial. <br><span class="formula-inline">\Delta T = T_{\text{pasteurização}} - T_{\text{entrada}}</span></li>
               <li><strong>Eficiência (<span class="formula-inline">\eta</span>):</strong> A eficiência do pasteurizador, expressa em forma decimal (ex: 90% = 0.90). Representa a fração da energia que é efetivamente usada para aquecer o leite.</li>
             </ul>
@@ -154,7 +170,6 @@ onMounted(() => {
 .container {
   max-width: 1024px;
   margin: 0 auto;
-  padding: 3rem 1rem;
 }
 
 .main-header {
