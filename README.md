@@ -1,5 +1,24 @@
-# Pasteurizador
-Este projeto consiste
+
+<div align="center">
+    <h1>
+    Pasteurizador
+    </h1>
+    <img src="./pasteurizer-simulator-page.png">
+</div>
+<br>
+Este projeto consiste em uma SPA 100% client-side otimizada e completa de um simulador de pasteurizador de leite, sendo um conjunto de fórmulas matemáticas que dado os corretos parâmetros fornecem resultados elucidadores e importanssímos para considerar a operação de um pasteurizador, como a energia total gasta que está relacionada ao custo etc. 
+
+## Dependências
+Segue abaixo a lista das dependências e frameworks primárias do projeto.
+
+- Vue
+- Vite
+- Typescript
+- Tailwind
+- Pinia
+- VueRouter
+- VueFire
+- Katex, Toastify, AOS, Zod
 
 ## Passos iniciais
 
