@@ -26,24 +26,38 @@ function toggleMenu() {
         </a>
       </div>
 
-      <nav class="hidden items-center gap-2 lg:flex">
-        <a href="/" class="group relative px-3 py-2 text-sm font-medium text-gray-300 transition-colors hover:text-white">
-          Início
-          <span class="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-white transition-all duration-300 group-hover:w-full"></span>
-        </a>
-        <a href="/sobre" class="group relative px-3 py-2 text-sm font-medium text-gray-300 transition-colors hover:text-white">
-          Sobre
-          <span class="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-white transition-all duration-300 group-hover:w-full"></span>
-        </a>
-        <a href="/tech" class="group relative px-3 py-2 text-sm font-medium text-gray-300 transition-colors hover:text-white">
-          Tecnologias
-          <span class="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-white transition-all duration-300 group-hover:w-full"></span>
-        </a>
-        <a href="/faq" class="group relative px-3 py-2 text-sm font-medium text-gray-300 transition-colors hover:text-white">
-          FAQ
-          <span class="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-white transition-all duration-300 group-hover:w-full"></span>
-        </a>
-      </nav>
+      <nav class="hidden items-center gap-2 lg:flex xl:gap-6 2xl:gap-8">
+  <a
+    href="/"
+    class="group relative px-3 py-2 text-sm sm:text-base xl:text-lg 2xl:text-xl font-medium text-gray-300 transition-colors hover:text-white xl:px-4 2xl:px-6"
+  >
+    Início
+    <span class="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-white transition-all duration-300 group-hover:w-full"></span>
+  </a>
+  <a
+    href="/sobre"
+    class="group relative px-3 py-2 text-sm sm:text-base xl:text-lg 2xl:text-xl font-medium text-gray-300 transition-colors hover:text-white xl:px-4 2xl:px-6"
+  >
+    Sobre
+    <span class="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-white transition-all duration-300 group-hover:w-full"></span>
+  </a>
+  <a
+    href="/tech"
+    class="group relative px-3 py-2 text-sm sm:text-base xl:text-lg 2xl:text-xl font-medium text-gray-300 transition-colors hover:text-white xl:px-4 2xl:px-6"
+  >
+    Tecnologias
+    <span class="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-white transition-all duration-300 group-hover:w-full"></span>
+  </a>
+  <a
+    href="/faq"
+    class="group relative px-3 py-2 text-sm sm:text-base xl:text-lg 2xl:text-xl font-medium text-gray-300 transition-colors hover:text-white xl:px-4 2xl:px-6"
+  >
+    FAQ
+    <span class="absolute bottom-0 left-1/2 h-0.5 w-0 -translate-x-1/2 bg-white transition-all duration-300 group-hover:w-full"></span>
+  </a>
+</nav>
+
+
 
       <div class="flex items-center gap-4">
         <a href="https://drive.google.com/file/d/1L2KAN1ixyU6hWL0efCLDqgtCXaL-jQJG/view?usp=sharing">

@@ -222,7 +222,7 @@ const handleResetValues = () => {
             </div>
         </Section>
 
-        <div class="lg:w-auto w-full md:px-8 sm:px-0 flex flex-auto flex-col lg:flex-row lg:items-start md:flex-col sm:flex-row justify-center items-center md:items-center mt-5">
+        <div class="xl:w-full lg:w-auto w-full md:px-8 sm:px-0 flex flex-auto flex-col lg:flex-row lg:items-start md:flex-col sm:flex-row justify-center items-center md:items-center mt-5">
             <CardsCaroulsel class="mx-4" data-aos="fade-up" duration="200" @backCard="handleBackCard()" @forwardCard="handleForwardCard()" @reset="handleResetValues()" :transitionName="transitionName" :disabledButton="disabledButton">
                 <div class="flex justify-center" :key="actualCardPosition">
                 <Calculator v-if="actualCardPosition === 0" @calc="EnergyConsumedToHeatMilk()" :calcResult="pasteurizerResults.energyConsumedToHeatMilk.result" :calcResultMeasure="pasteurizerResults.energyConsumedToHeatMilk.measure" cardTitle="⚡ Energia Total Gasta pelo Pasteurizador (kJ)"> 
@@ -281,7 +281,7 @@ const handleResetValues = () => {
                         </template>
                     </Calculator> 
             
-                    <Calculator v-if="actualCardPosition === 2" @calc="steamInputFlowRate()" :calcResult="pasteurizerResults.steamInputFlowRate.result" :calcResultMeasure="pasteurizerResults.steamInputFlowRate.measure" cardTitle="💨 Vazão de Entrada de Vapor no Pasteurizador (kg/h)"> 
+                    <Calculator v-if="actualCardPosition === 2" @calc="steamInputFlowRate()" :calcResult="pasteurizerResults.steamInputFlowRate.result" :calcResultMeasure="pasteurizerResults.steamInputFlowRate.measure" cardTitle="💨 Vazão de Entrada de Vapor (kg/h)"> 
                         <template v-slot:card-form>
                             <div>
                                 <label for="energytotalConsumedSteamInput" class="block mb-2 text-sm font-medium text-gray-700 ">Energia Total Gasta pelo Pasteurizador</label>
@@ -494,41 +494,41 @@ const handleResetValues = () => {
         </div>
 
         <div v-if="allResultsReady"  ref="resultsSection" class="mb-12">
-        <h2 class="mt-12 text-[var(--text-section-title-color)] text-3xl font-bold text-center mb-8" data-aos="fade-up">
-            Resultados Calculados
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mx-10">
-  
-            <div 
-                v-for="(item, key) in pasteurizerResults" 
-                :key="key"
-                
-                class="group bg-white rounded-xl shadow-lg border border-slate-200 p-5 flex flex-col h-full transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-2xl"
-                data-aos="fade-up"
-            >
-                <div class="mb-5">
+            <h2 class="mt-12 text-[var(--text-section-title-color)] text-3xl font-bold text-center mb-8" data-aos="fade-up">
+                Resultados Calculados
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mx-10">
+    
                 <div 
-                    class="w-14 h-14 text-2xl rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 transition-colors group-hover:bg-indigo-100 group-hover:text-indigo-600"
-                    v-html="cardDetails[key].icon"
+                    v-for="(item, key) in pasteurizerResults" 
+                    :key="key"
+                    
+                    class="group bg-white rounded-xl shadow-lg border border-slate-200 p-5 flex flex-col h-full transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-2xl"
+                    data-aos="fade-up"
                 >
+                    <div class="mb-5">
+                    <div 
+                        class="w-14 h-14 text-2xl rounded-lg bg-slate-100 flex items-center justify-center text-slate-500 transition-colors group-hover:bg-indigo-100 group-hover:text-indigo-600"
+                        v-html="cardDetails[key].icon"
+                    >
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col flex-grow">
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">
+                        {{ cardDetails[key].label }}
+                    </h3>
+                    
+                    <p class="text-sm sm:text-base xl:text-lg text-slate-500 text-sm mb-6 flex-grow">
+                        {{ cardDetails[key].description }}
+                    </p>
+
+                    <p class="text-4xl sm:text-4xl font-extrabold text-blue-600">
+                        {{ item.result ? item.result : '' }}
+                        <span class="text-2xl font-medium text-slate-400 align-baseline">{{ item.measure }}</span>
+                    </p>
                     </div>
                 </div>
-                
-                <div class="flex flex-col flex-grow">
-                <h3 class="text-xl font-bold text-slate-800 mb-2">
-                    {{ cardDetails[key].label }}
-                </h3>
-                
-                <p class="text-slate-500 text-sm mb-6 flex-grow">
-                    {{ cardDetails[key].description }}
-                </p>
-
-                <p class="text-4xl sm:text-4xl font-extrabold text-blue-600">
-                    {{ item.result ? item.result : '' }}
-                    <span class="text-2xl font-medium text-slate-400 align-baseline">{{ item.measure }}</span>
-                </p>
-                </div>
-            </div>
             </div>
         </div>
     </div>
