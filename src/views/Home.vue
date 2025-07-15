@@ -201,6 +201,10 @@ const handleResetValues = () => {
     for (const key in settings){
         settings[key] = null;
     }
+    disabledButton.value = '';
+    transitionName.value = 'slide-next';
+    return actualCardPosition.value = 0;
+    allResultsReady.value = false;
 }
 
 </script>
@@ -425,7 +429,7 @@ const handleResetValues = () => {
                                 <div class="relative">
                                     <input readonly 
                                     :value="pasteurizerResults.steamInputFlowRate.result"  
-                                    type="number" id="steamInRateCost" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 2°C">
+                                    type="number" id="steamInRateCost" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="2°C">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">kg/h</span>
                                 </div>
                             </div>
