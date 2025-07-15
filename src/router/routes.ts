@@ -29,6 +29,12 @@ export const routes: RouteRecordRaw[] = [
     {
         path: '/:pathMatch(.*)*',
         name: 'Não Encontrado',
-        component: () => import("@/views/404.vue")
+        component: () => import("@/views/Error.vue"),
+        props: {
+            errorCode: '404',
+            errorTitle: 'Página Não Encontrada',
+            errorDescription: 'Oops! A página que você tentou acessar não existe ou foi movida. Verifique o endereço e tente novamente.'
+        },
+        meta: { hideLayout: true }
     },
 ]

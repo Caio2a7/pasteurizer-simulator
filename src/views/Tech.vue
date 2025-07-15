@@ -1,7 +1,21 @@
+<script setup>
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { onMounted } from 'vue';
+
+onMounted(() => {
+  AOS.init({
+    duration: 800,
+    once: true,    
+  });
+});
+
+</script>
+
 <template>
   <div class="tech-page">
     <div class="container">
-      <header class="main-header">
+      <header class="main-header" data-aos="fade-up" duration="300">
         <h1>Tecnologias Utilizadas</h1>
         <p>
           Conheça os frameworks e plataformas utilizadas para o desenvolvimento, produção e entrega desta aplicação.
@@ -10,7 +24,7 @@
 
       <div class="tech-grid">
         
-        <div class="tech-card" style="--brand-color: #42b883;">
+        <div class="tech-card" style="--brand-color: #42b883;" data-aos="fade-up" duration="300">
           <div class="card-content">
             <img src="@/assets/icons/vue.svg" alt="Vue.js Icon" class="tech-icon">
             <h3 class="tech-title">Vue.js</h3>
@@ -18,7 +32,7 @@
           </div>
         </div>
 
-        <div class="tech-card" style="--brand-color: #646cff;">
+        <div class="tech-card" style="--brand-color: #646cff;" data-aos="fade-up" duration="300">
           <div class="card-content">
             <img src="@/assets/icons/vite.svg" alt="Vite Icon" class="tech-icon">
             <h3 class="tech-title">Vite</h3>
@@ -26,7 +40,7 @@
           </div>
         </div>
 
-        <div class="tech-card" style="--brand-color: #38b2ac;">
+        <div class="tech-card" style="--brand-color: #38b2ac;" data-aos="fade-up" duration="300">
           <div class="card-content">
             <img src="@/assets/icons/tailwind.svg" alt="Tailwind CSS Icon" class="tech-icon">
             <h3 class="tech-title">Tailwind CSS</h3>
@@ -34,7 +48,7 @@
           </div>
         </div>
 
-        <div class="tech-card" style="--brand-color: #000000;">
+        <div class="tech-card" style="--brand-color: #000000;" data-aos="fade-up" duration="300">
           <div class="card-content">
             <img src="@/assets/icons/vercel.svg" alt="Vercel Icon" class="tech-icon">
             <h3 class="tech-title">Vercel</h3>
@@ -42,7 +56,7 @@
           </div>
         </div>
 
-        <div class="tech-card" style="--brand-color: #ffca28;">
+        <div class="tech-card" style="--brand-color: #ffca28;" data-aos="fade-up" duration="300">
           <div class="card-content">
             <img src="@/assets/icons/firestore.svg" alt="Firestore Icon" class="tech-icon">
             <h3 class="tech-title">Firestore</h3>
@@ -52,7 +66,7 @@
         
         
         
-        <div class="tech-card" style="--brand-color: #007acc;">
+        <div class="tech-card" style="--brand-color: #007acc;" data-aos="fade-up" duration="300">
             <div class="card-content">
                 <img src="@/assets/icons/typescript.svg" alt="TypeScript Icon" class="tech-icon">
                 <h3 class="tech-title">TypeScript</h3>
@@ -60,7 +74,7 @@
             </div>
         </div>
         
-        <div class="tech-card" style="--brand-color: #f7d224;">
+        <div class="tech-card" style="--brand-color: #f7d224;" data-aos="fade-up" duration="300">
           <div class="card-content">
             <img src="@/assets/icons/pinia.svg" alt="Pinia Icon" class="tech-icon">
             <h3 class="tech-title">Pinia</h3>
@@ -73,13 +87,9 @@
   </div>
 </template>
 
-<script setup>
-// Nenhuma lógica de script adicional é necessária para esta página estática.
-</script>
 
 <style scoped>
 .tech-page {
-  background-color: #f8f9fa;
   color: #212529;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
   line-height: 1.6;

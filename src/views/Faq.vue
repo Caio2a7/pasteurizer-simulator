@@ -1,15 +1,28 @@
+<script setup>
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { onMounted } from 'vue';
+onMounted(() => {
+  AOS.init({
+    duration: 800,
+    once: true
+  })
+})
+
+
+</script>
 <template>
   <div class="faq-page">
-    <div class="container">
-      <header class="main-header">
+    <div class="container w-full">
+      <header class="main-header" data-aos="fade-up" duration="300">
         <h1>Perguntas Frequentes (FAQ)</h1>
         <p>
           Tem alguma dúvida sobre o funcionamento do simulador ou do projeto em geral? Se não encontrar sua resposta aqui, entre em contato.
         </p>
       </header>
 
-      <div class="form-container">
-        <div class="form-card">
+      <div class="form-container w-full">
+        <div class="form-card flex-1 w-full" data-aos="fade-up" duration="300">
           <div class="card-header">
             <h3 class="form-title">Não encontrou o que procurava?</h3>
             <p class="form-subtitle">Envie sua pergunta diretamente para nossa equipe. Responderemos o mais breve possível.</p>
@@ -49,14 +62,9 @@
   </div>
 </template>
 
-<script setup>
-// Nenhuma lógica de script é necessária. A ação 'mailto:' é gerenciada pelo navegador.
-</script>
 
 <style scoped>
-/* Reutilizando e adaptando o estilo da página de tecnologias */
 .faq-page {
-  background-color: #f8f9fa;
   color: #212529;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
   line-height: 1.6;
@@ -90,19 +98,17 @@
   margin-right: auto;
 }
 
-/* Container para centralizar o card do formulário */
 .form-container {
   display: flex;
+  flex-grow: 1;
   justify-content: center;
 }
 
 .form-card {
   background-color: #ffffff;
-  border-radius: 0.75rem; /* 12px */
+  border-radius: 0.75rem; 
   border: 1px solid #e5e7eb;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-  width: 100%;
-  max-width: 600px;
   padding: 2rem;
 }
 

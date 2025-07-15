@@ -2,8 +2,14 @@
 import { onMounted } from 'vue';
 import katex from 'katex';
 import 'katex/dist/katex.min.css'; 
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 onMounted(() => {
+  AOS.init({
+    duration: 800,
+    once: true,    
+  });
   try {
     const blockElements = document.querySelectorAll('.formula-block');
     blockElements.forEach(el => {
@@ -24,20 +30,22 @@ onMounted(() => {
     console.error('Erro ao renderizar KaTeX:', error);
   }
 });
+
+
 </script>
 
 <template>
   <div class="about-page">
     <div class="container px-0">
       
-      <header class="main-header">
+      <header class="main-header" data-aos="fade-up" duration="300">
         <h1>O Coração do Pasteurizador: Uma Análise Detalhada</h1>
         <p>
           Entenda a ciência e a matemática por trás da simulação de um pasteurizador de placas, desde a termodinâmica até a dinâmica dos fluidos.
         </p>
       </header>
 
-      <section class="info-card">
+      <section class="info-card" data-aos="fade-up" duration="300">
         <h2 class="section-title">O que é um Pasteurizador?</h2>
         <p>
           O pasteurizador é um equipamento crucial na indústria alimentícia, projetado para garantir a segurança dos alimentos e prolongar sua vida útil. O processo, nomeado em homenagem a Louis Pasteur, envolve o aquecimento controlado do produto (como o leite) a uma temperatura específica por um determinado tempo, seguido por um resfriamento rápido. Esta ação elimina ou inativa microrganismos patogênicos e de deterioração.
@@ -49,7 +57,7 @@ onMounted(() => {
 
       <div class="formulas-container">
 
-        <div class="formula-card">
+        <div class="formula-card" data-aos="fade-up" duration="300">
           <h3 class="formula-title">1. Energia Total Gasta pelo Pasteurizador (kJ)</h3>
           <p class="description">
             Esta é a quantidade total de energia térmica necessária para elevar a temperatura do leite do seu estado inicial até a temperatura de pasteurização, considerando as perdas de calor para o ambiente através da eficiência do equipamento.
@@ -84,7 +92,7 @@ onMounted(() => {
           </div>
         </div>
 
-        <div class="formula-card">
+        <div class="formula-card" data-aos="fade-up" duration="300">
           <h3 class="formula-title">2. Vazão do Leite Pasteurizado (L/min)</h3>
           <p class="description">Representa o volume de leite que o sistema consegue processar por minuto. É um indicador direto da capacidade de produção do equipamento.</p>
           <div class="formula-block">\text{Vazão}_{\text{leite}} = \frac{V_{\text{leite}} (\text{L})}{t_{\text{processo}} (\text{min})}</div>
@@ -97,7 +105,7 @@ onMounted(() => {
           </div>
         </div>
         
-        <div class="formula-card">
+        <div class="formula-card" data-aos="fade-up" duration="300">
             <h3 class="formula-title">3. Vazão de Entrada de Vapor (kg/h)</h3>
             <p class="description">Para aquecer o leite, utiliza-se vapor d'água, que libera uma grande quantidade de energia (calor latente) ao condensar. Esta fórmula calcula a quantidade de vapor necessária por hora.</p>
             <div class="formula-block">\dot{m}_{\text{vapor}} = \frac{E_{\text{total}}}{L_v \cdot t_{\text{processo}}(\text{h})}</div>
@@ -111,7 +119,7 @@ onMounted(() => {
             </div>
         </div>
 
-        <div class="formula-card">
+        <div class="formula-card" data-aos="fade-up" duration="300">
           <h3 class="formula-title">4. Vazão de Entrada de Água Fria (kg/h)</h3>
           <p class="description">Após o aquecimento, o leite precisa ser resfriado rapidamente. A água fria é usada para absorver o calor do leite. Esta fórmula determina a quantidade de água fria necessária por hora.</p>
           <div class="formula-block">\dot{m}_{\text{água}} = \frac{m_{\text{leite}} \cdot c_{\text{leite}} \cdot (T_{\text{pasteurização}} - T_{\text{saída}})}{c_{\text{água}} \cdot (T_{\text{saída, água}} - T_{\text{entrada, água}}) \cdot t_{\text{processo}}(\text{h})}</div>
@@ -126,7 +134,7 @@ onMounted(() => {
           </div>
         </div>
 
-        <div class="formula-card">
+        <div class="formula-card" data-aos="fade-up" duration="300"> 
           <h3 class="formula-title">5. Área do Trocador de Calor (m²)</h3>
           <p class="description">A área de troca térmica é uma medida da superfície através da qual o calor passa do fluido quente para o fluido frio. É um parâmetro de projeto fundamental do pasteurizador.</p>
           <div class="formula-block">A = \frac{P}{U \cdot \Delta T_{LM}}</div>
@@ -140,7 +148,7 @@ onMounted(() => {
           </div>
         </div>
 
-        <div class="formula-card">
+        <div class="formula-card" data-aos="fade-up" duration="300">
           <h3 class="formula-title">6. Perdas Térmicas (kJ)</h3>
           <p class="description">Representa a quantidade de energia fornecida ao sistema mas que não foi absorvida pelo leite, sendo dissipada para o ambiente. É o inverso da eficiência.</p>
           <div class="formula-block">E_{\text{perdida}} = E_{\text{total}} \cdot (1 - \eta)</div>
@@ -161,7 +169,6 @@ onMounted(() => {
 <style scoped>
 /* Os estilos permanecem exatamente os mesmos. Nenhuma alteração aqui. */
 .about-page {
-  background-color: #f8f9fa;
   color: #212529;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
   line-height: 1.6;

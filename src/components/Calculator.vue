@@ -14,7 +14,7 @@ const onCalcButtonClick = () => {
 
 </script>
 <template>
-    <div class="lg:w-auto md:w-full sm:w-full xs:w-full mx-0 flex flex-col overflow-hidden rounded-2xl border border-gray-300 bg-white shadow-lg hover:shadow-2xl transition-shadow duration-300">
+    <div class="lg:w-auto w-full mx-0 flex flex-col overflow-hidden rounded-2xl border border-gray-300 bg-white shadow-lg hover:shadow-2xl transition-shadow duration-300">
         <div class="flex items-center gap-4 bg-gray-100/50 ps-4 p-2  border-b border-gray-300 ">
             <!-- <div class="grid place-items-center rounded-lg bg-blue-100 text-blue-600 ">
                 <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

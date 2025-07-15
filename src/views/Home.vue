@@ -222,7 +222,7 @@ const handleResetValues = () => {
             </div>
         </Section>
 
-        <div class="lg:w-auto md:w-full sm:w-full xs:w-full md:px-8 sm:px-0 flex flex-auto flex-col lg:flex-row lg:items-start md:flex-col sm:flex-row justify-center items-center md:items-center mt-5">
+        <div class="lg:w-auto w-full md:px-8 sm:px-0 flex flex-auto flex-col lg:flex-row lg:items-start md:flex-col sm:flex-row justify-center items-center md:items-center mt-5">
             <CardsCaroulsel class="mx-4" data-aos="fade-up" duration="200" @backCard="handleBackCard()" @forwardCard="handleForwardCard()" @reset="handleResetValues()" :transitionName="transitionName" :disabledButton="disabledButton">
                 <div class="flex justify-center" :key="actualCardPosition">
                 <Calculator v-if="actualCardPosition === 0" @calc="EnergyConsumedToHeatMilk()" :calcResult="pasteurizerResults.energyConsumedToHeatMilk.result" :calcResultMeasure="pasteurizerResults.energyConsumedToHeatMilk.measure" cardTitle="⚡ Energia Total Gasta pelo Pasteurizador (kJ)"> 
@@ -236,7 +236,7 @@ const handleResetValues = () => {
                             </div>
             
                             <div>
-                                <label for="milkHeatingTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Pasteurização/Aquecimento do Leite</label>
+                                <label for="milkHeatingTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Aquecimento do Leite</label>
                                 <div class="relative">
                                     <input v-model="settings.milkHeatingTemp" type="number" id="milkHeatingTemp" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 72°C">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
@@ -328,7 +328,7 @@ const handleResetValues = () => {
                             </div>
             
                             <div>
-                                <label for="milkHeatingTempRequiredArea" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Pasteurização/Aquecimento do Leite</label>
+                                <label for="milkHeatingTempRequiredArea" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Aquecimento do Leite</label>
                                 <div class="relative">
                                     <input v-model="settings.milkHeatingTemp" type="number" id="milkHeatingTempRequiredArea" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 72°C">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
@@ -357,7 +357,7 @@ const handleResetValues = () => {
                     <Calculator v-if="actualCardPosition === 4" @calc="requiredAreaToHeatExchanger()" :calcResult="pasteurizerResults.requiredAreaToHeatExchanger.result" :calcResultMeasure="pasteurizerResults.requiredAreaToHeatExchanger.measure" cardTitle="↔️ Área Necessária do Trocador de Calor (m²)"> 
                         <template v-slot:card-form>
                             <div>
-                                <label for="milkHeatingTempFreezeFlow" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Pasteurização/Aquecimento do Leite</label>
+                                <label for="milkHeatingTempFreezeFlow" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Aquecimento do Leite</label>
                                 <div class="relative">
                                     <input v-model="settings.milkHeatingTemp" type="number" id="milkHeatingTempFreezeFlow" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 72°C">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
