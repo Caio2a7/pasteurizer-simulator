@@ -16,7 +16,7 @@ const onCalcButtonClick = () => {
 <template>
     <div class="xl:w-full lg:w-auto w-full mx-0 flex flex-col overflow-hidden rounded-2xl border border-gray-300 bg-white shadow-lg hover:shadow-2xl transition-shadow duration-300">
         <div class="flex items-center gap-4 bg-gray-100/50 ps-4 p-2  border-b border-gray-300 ">
-            <p class="lg:text-xl sm:text-[15px] flex-1 break-words font-bold text-gray-800"> {{ props.cardTitle }} </p>
+            <p class="text-sm sm:text-sm lg:text-lg xl:text-lg 2xl:text-2xl flex-1 break-words font-bold text-gray-800"> {{ props.cardTitle }} </p>
         </div>
         
         <div @keyup.enter="onCalcButtonClick" class="p-6 space-y-6">
@@ -32,9 +32,9 @@ const onCalcButtonClick = () => {
             </button>
 
             <div class="mt-2 rounded-lg border border-dashed border-gray-400 bg-gray-50/50 p-6 text-center ">
-                <p class="text-sm font-medium tracking-wider text-gray-600 ">RESULTADO</p>
+                <p class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-2xl font-medium tracking-wider text-gray-600 ">RESULTADO</p>
                 <p class="text-4xl font-bold text-gray-900  mt-2">{{ props.calcResult ? props.calcResult : ''}}</p>
-                <p class="text-sm text-gray-500 mt-1">{{ props.calcResultMeasure }}</p>
+                <p class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-2xl text-gray-500 mt-1">{{ props.calcResultMeasure }}</p>
             </div>
         </div>
     </div>

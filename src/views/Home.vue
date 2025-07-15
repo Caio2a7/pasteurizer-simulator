@@ -243,13 +243,13 @@ const handleResetValues = () => {
             </div>
         </Section>
 
-        <div class="xl:w-full lg:w-auto w-full md:px-8 sm:px-0 flex flex-auto flex-col lg:flex-row lg:items-start md:flex-col sm:flex-row justify-center items-center md:items-center mt-5">
+        <div class="xl:w-full lg:w-auto w-full md:px-0 sm:px-4 flex flex-auto flex-col lg:flex-row lg:items-start md:flex-col sm:flex-row justify-center items-center md:items-center mt-5">
             <CardsCaroulsel class="mx-4" data-aos="fade-up" duration="200" @backCard="handleBackCard()" @forwardCard="handleForwardCard()" @reset="handleResetValues()" :transitionName="transitionName" :disabledButton="disabledButton">
                 <div class="flex justify-center" :key="actualCardPosition">
                 <Calculator v-if="actualCardPosition === 0" @calc="EnergyConsumedToHeatMilk()" :calcResult="pasteurizerResults.energyConsumedToHeatMilk.result" :calcResultMeasure="pasteurizerResults.energyConsumedToHeatMilk.measure" cardTitle="⚡ Energia Total Gasta pelo Pasteurizador (kJ)"> 
                         <template v-slot:card-form>
                             <div>
-                                <label for="milkInputHeatingTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Entrada do Leite</label>
+                                <label for="milkInputHeatingTemp" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Entrada do Leite</label>
                                 <div class="relative">
                                     <input v-model="settings.milkInputTemp" type="number" id="milkInputHeatingTemp" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 7°C">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
@@ -257,7 +257,7 @@ const handleResetValues = () => {
                             </div>
             
                             <div>
-                                <label for="milkHeatingTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Aquecimento do Leite</label>
+                                <label for="milkHeatingTemp" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Aquecimento do Leite</label>
                                 <div class="relative">
                                     <input v-model="settings.milkHeatingTemp" type="number" id="milkHeatingTemp" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 72°C">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
@@ -265,7 +265,7 @@ const handleResetValues = () => {
                             </div>
             
                             <div>
-                                <label for="milkInputVolume" class="block mb-2 text-sm font-medium text-gray-700 ">Volume de Entrada do Leite</label>
+                                <label for="milkInputVolume" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Volume de Entrada do Leite</label>
                                 <div class="relative">
                                     <input v-model="settings.milkVolume" type="number" id="milkInputVolume" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 500L">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">L</span>
@@ -273,7 +273,7 @@ const handleResetValues = () => {
                             </div>
             
                             <div>
-                                <label for="efficiency" class="block mb-2 text-sm font-medium text-gray-700 ">Eficiência de Pasteurização</label>
+                                <label for="efficiency" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Eficiência de Pasteurização</label>
                                 <div class="relative">
                                     <input v-model="settings.efficiency" type="number" id="efficiency" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 75%">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">%</span>
@@ -285,7 +285,7 @@ const handleResetValues = () => {
                     <Calculator v-if="actualCardPosition === 1" @calc="heatLoss()" :calcResult="pasteurizerResults.heatLoss.result" :calcResultMeasure="pasteurizerResults.heatLoss.measure" cardTitle="🔥 Perda Térmica (kJ)"> 
                         <template v-slot:card-form>
                             <div>
-                                <label for="energytotalConsumedHeatLoss" class="block mb-2 text-sm font-medium text-gray-700 ">Energia Total Gasta pelo Pasteurizador</label>
+                                <label for="energytotalConsumedHeatLoss" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Energia Total Gasta pelo Pasteurizador</label>
                                 <div class="relative">
                                     <input readonly :value="pasteurizerResults.energyConsumedToHeatMilk.result" type="number" id="energytotalConsumedHeatLoss" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 176422 kJ">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">kJ</span>
@@ -293,7 +293,7 @@ const handleResetValues = () => {
                             </div>
             
                             <div>
-                                <label for="heatingLossEfficiency" class="block mb-2 text-sm font-medium text-gray-700 ">Eficiência</label>
+                                <label for="heatingLossEfficiency" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Eficiência</label>
                                 <div class="relative">
                                     <input v-model="settings.efficiency" type="number" id="heatingLossEfficiency" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 75%">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">%</span>
@@ -305,7 +305,7 @@ const handleResetValues = () => {
                     <Calculator v-if="actualCardPosition === 2" @calc="steamInputFlowRate()" :calcResult="pasteurizerResults.steamInputFlowRate.result" :calcResultMeasure="pasteurizerResults.steamInputFlowRate.measure" cardTitle="💨 Vazão de Entrada de Vapor (kg/h)"> 
                         <template v-slot:card-form>
                             <div>
-                                <label for="energytotalConsumedSteamInput" class="block mb-2 text-sm font-medium text-gray-700 ">Energia Total Gasta pelo Pasteurizador</label>
+                                <label for="energytotalConsumedSteamInput" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Energia Total Gasta pelo Pasteurizador</label>
                                 <div class="relative">
                                     <input readonly :value="pasteurizerResults.energyConsumedToHeatMilk.result" type="number" id="energytotalConsumedSteamInput" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 176422 kJ">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">kJ</span>
@@ -313,7 +313,7 @@ const handleResetValues = () => {
                             </div>
             
                             <div>
-                                <label for="steamInputDuration" class="block mb-2 text-sm font-medium text-gray-700 ">Duração do Processo</label>
+                                <label for="steamInputDuration" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Duração do Processo</label>
                                 <div class="relative">
                                     <input v-model="settings.duration" type="number" id="steamInputDuration" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 1h">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">h</span>
@@ -325,7 +325,7 @@ const handleResetValues = () => {
                     <Calculator v-if="actualCardPosition === 3" @calc="freezingWaterInputFlowRate()" :calcResult="pasteurizerResults.freezingWaterInputFlowRate.result" :calcResultMeasure="pasteurizerResults.freezingWaterInputFlowRate.measure" cardTitle="❄️ Vazão de Entrada de Água Fria (kg/h')"> 
                         <template v-slot:card-form>
                             <div>
-                                <label for="energytotalConsumedRequiredArea" class="block mb-2 text-sm font-medium text-gray-700 ">Energia Total Gasta pelo Pasteurizador</label>
+                                <label for="energytotalConsumedRequiredArea" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Energia Total Gasta pelo Pasteurizador</label>
                                 <div class="relative">
                                     <input readonly :value="pasteurizerResults.energyConsumedToHeatMilk.result" type="number" id="energytotalConsumedRequiredArea" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 176422 kJ">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">kJ</span>
@@ -333,7 +333,7 @@ const handleResetValues = () => {
                             </div>
             
                             <div>
-                                <label for="requiredAreaDuration" class="block mb-2 text-sm font-medium text-gray-700 ">Duração do Processo</label>
+                                <label for="requiredAreaDuration" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Duração do Processo</label>
                                 <div class="relative">
                                     <input v-model="settings.duration" type="number" id="requiredAreaDuration" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 1h">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">h</span>
@@ -341,7 +341,7 @@ const handleResetValues = () => {
                             </div>
             
                             <div>
-                                <label for="milkInputHeatingTempRequiredArea" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Entrada do Leite</label>
+                                <label for="milkInputHeatingTempRequiredArea" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Entrada do Leite</label>
                                 <div class="relative">
                                     <input v-model="settings.milkInputTemp" type="number" id="milkInputHeatingTempRequiredArea" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 7°C">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
@@ -349,7 +349,7 @@ const handleResetValues = () => {
                             </div>
             
                             <div>
-                                <label for="milkHeatingTempRequiredArea" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Aquecimento do Leite</label>
+                                <label for="milkHeatingTempRequiredArea" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Aquecimento do Leite</label>
                                 <div class="relative">
                                     <input v-model="settings.milkHeatingTemp" type="number" id="milkHeatingTempRequiredArea" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 72°C">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
@@ -358,7 +358,7 @@ const handleResetValues = () => {
             
                             
                             <div>
-                                <label for="waterInTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Entrada da Água Fria</label>
+                                <label for="waterInTemp" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Entrada da Água Fria</label>
                                 <div class="relative">
                                     <input readonly :value="2" type="number" id="waterInTemp" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="85°C">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
@@ -366,7 +366,7 @@ const handleResetValues = () => {
                             </div>
             
                             <div>
-                                <label for="waterOutTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Saída da Água Fria</label>
+                                <label for="waterOutTemp" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Saída da Água Fria</label>
                                 <div class="relative">
                                     <input readonly :value="25" type="number" id="waterOutTemp" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="70°C">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
@@ -378,7 +378,7 @@ const handleResetValues = () => {
                     <Calculator v-if="actualCardPosition === 4" @calc="requiredAreaToHeatExchanger()" :calcResult="pasteurizerResults.requiredAreaToHeatExchanger.result" :calcResultMeasure="pasteurizerResults.requiredAreaToHeatExchanger.measure" cardTitle="↔️ Área Necessária do Trocador de Calor (m²)"> 
                         <template v-slot:card-form>
                             <div>
-                                <label for="milkHeatingTempFreezeFlow" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Aquecimento do Leite</label>
+                                <label for="milkHeatingTempFreezeFlow" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Aquecimento do Leite</label>
                                 <div class="relative">
                                     <input v-model="settings.milkHeatingTemp" type="number" id="milkHeatingTempFreezeFlow" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 72°C">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
@@ -386,7 +386,7 @@ const handleResetValues = () => {
                             </div>
             
                             <div>
-                                <label for="milkFreezingTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Resfriamento desejado do Leite</label>
+                                <label for="milkFreezingTemp" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Temp. de Resfriamento desejado do Leite</label>
                                 <div class="relative">
                                     <input v-model="settings.milkFreezeTemp" type="number" id="milkFreezingTemp" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 4.5°C">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
@@ -394,7 +394,7 @@ const handleResetValues = () => {
                             </div>
             
                             <div class="xl:col-span-2 md:col-span-1">
-                                <label for="milkVolumeFreezingFlow" class="block mb-2 text-sm font-medium text-gray-700 ">Volume de Entrada do Leite</label>
+                                <label for="milkVolumeFreezingFlow" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Volume de Entrada do Leite</label>
                                 <div class="relative">
                                     <input v-model="settings.milkVolume" type="number" id="milkVolumeFreezingFlow" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 500L">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">L</span>
@@ -402,7 +402,7 @@ const handleResetValues = () => {
                             </div>
                             
                             <div>
-                                <label for="waterInTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Entrada da Água</label>
+                                <label for="waterInTemp" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Entrada da Água</label>
                                 <div class="relative">
                                     <input readonly :value="85" type="number" id="waterInTemp" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 2°C">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
@@ -410,7 +410,7 @@ const handleResetValues = () => {
                             </div>
             
                             <div>
-                                <label for="waterOutTemp" class="block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Saída da Água</label>
+                                <label for="waterOutTemp" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Temperatura de Saída da Água</label>
                                 <div class="relative">
                                     <input readonly :value="70" type="number" id="waterOutTemp" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 25°C">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">°C</span>
@@ -422,7 +422,7 @@ const handleResetValues = () => {
                     <Calculator v-if="actualCardPosition === 5" @calc="milkFlowRate()" :calcResult="pasteurizerResults.milkFlowRate.result" :calcResultMeasure="pasteurizerResults.milkFlowRate.measure" cardTitle="🥛 Vazão de Saída do Leite Pasteurizado (L/min)"> 
                         <template v-slot:card-form>
                             <div>
-                                <label for="milkFlowRateDuration" class="block mb-2 text-sm font-medium text-gray-700 ">Duração do Processo</label>
+                                <label for="milkFlowRateDuration" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Duração do Processo</label>
                                 <div class="relative">
                                     <input v-model="settings.duration" type="number" id="milkFlowRateDuration" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 1h">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">h</span>
@@ -430,7 +430,7 @@ const handleResetValues = () => {
                             </div>
             
                             <div>
-                                <label for="milkVolumeFlowRate" class="block mb-2 text-sm font-medium text-gray-700 ">Volume de Entrada do Leite</label>
+                                <label for="milkVolumeFlowRate" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Volume de Entrada do Leite</label>
                                 <div class="relative">
                                     <input v-model="settings.milkVolume" type="number" id="milkVolumeFlowRate" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 500L">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">L</span>
@@ -442,7 +442,7 @@ const handleResetValues = () => {
                     <Calculator v-if="actualCardPosition === 6" @calc="operationalCost()" :calcResult="pasteurizerResults.operationalCost.result" :calcResultMeasure="pasteurizerResults.operationalCost.measure" cardTitle="💵 Custo Operacional Total (R$/h)"> 
                         <template v-slot:card-form>
                             <div>
-                                <label for="steamInRateCost" class="block mb-2 text-sm font-medium text-gray-700 ">Vazão de Vapor</label>
+                                <label for="steamInRateCost" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Vazão de Vapor</label>
                                 <div class="relative">
                                     <input readonly 
                                     :value="pasteurizerResults.steamInputFlowRate.result"  
@@ -452,7 +452,7 @@ const handleResetValues = () => {
                             </div>
             
                             <div>
-                                <label for="waterInRateCost" class="block mb-2 text-sm font-medium text-gray-700 ">Vazão de Água Fria</label>
+                                <label for="waterInRateCost" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Vazão de Água Fria</label>
                                 <div class="relative">
                                     <input readonly 
                                     :value="pasteurizerResults.freezingWaterInputFlowRate.result" 
@@ -462,7 +462,7 @@ const handleResetValues = () => {
                             </div>
 
                             <div>
-                                <label for="steamCostPerKilo" class="block mb-2 text-sm font-medium text-gray-700 ">Custo do Vapor por Kg</label>
+                                <label for="steamCostPerKilo" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Custo do Vapor por Kg</label>
                                 <div class="relative">
                                     <input v-model="settings.steamCostPerKilo" type="number" id="steamCostPerKilo" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: R$ 0.15/kg">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">R$/kg</span>
@@ -470,7 +470,7 @@ const handleResetValues = () => {
                             </div>
             
                             <div>
-                                <label for="waterCostPerCubic" class="block mb-2 text-sm font-medium text-gray-700 ">Custo da Água Fria por M³</label>
+                                <label for="waterCostPerCubic" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Custo da Água Fria por M³</label>
                                 <div class="relative">
                                     <input v-model="settings.waterCostPerCubic" type="number" id="waterCostPerCubic" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: R$ 15.75/m³">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">R$/m³</span>
@@ -478,7 +478,7 @@ const handleResetValues = () => {
                             </div>
 
                             <div>
-                                <label for="estimateElectricConsume" class="block mb-2 text-sm font-medium text-gray-700 ">Consumo Elétrico Estimado</label>
+                                <label for="estimateElectricConsume" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Consumo Elétrico Estimado</label>
                                 <div class="relative">
                                     <input v-model="settings.estimateElectricConsume" type="number" id="estimateElectricConsume" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: 7.5kW/h">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">kW/h</span>
@@ -486,7 +486,7 @@ const handleResetValues = () => {
                             </div>
             
                             <div>
-                                <label for="costPerKwh" class="block mb-2 text-sm font-medium text-gray-700 ">Custo Elétrico por kW/h</label>
+                                <label for="costPerKwh" class="text-sm sm:text-sm lg:text-md xl:text-sm 2xl:text-lg block mb-2 text-sm font-medium text-gray-700 ">Custo Elétrico por kW/h</label>
                                 <div class="relative">
                                     <input v-model="settings.costPerKwH" type="number" id="costPerKwh" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: R$ 0.60/kWh">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">R$/kWh</span>
@@ -554,3 +554,7 @@ const handleResetValues = () => {
         </div>
     </div>
 </template>
+
+<style scoped>
+
+</style>
