@@ -186,6 +186,14 @@ h3{
 p, span, li{
   font-size: 1.5rem !important;
 }
+@media (max-width: 768px) {
+  h3{
+    font-size: 1.3rem !important;
+  }
+  p, span, li{
+    font-size: 1.1rem !important;
+  }
+}
 /* Os estilos permanecem exatamente os mesmos. Nenhuma alteração aqui. */
 .about-page {
   color: #212529;
@@ -194,7 +202,6 @@ p, span, li{
 }
 
 .container {
-  max-width: 1024px;
   margin: 0 auto;
 }
 
