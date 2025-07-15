@@ -14,6 +14,10 @@ interface PasteurizerSettings {
   milkFreezeTemp: number;
   duration: number;
   efficiency: number;
+  steamCostPerKilo: number;
+  waterCostPerCubic: number;
+  estimateElectricConsume: number;
+  costPerKwH: number
 }
 interface PasteurizerResults {
   energyConsumedToHeatMilk: ResultUnit<number>;
@@ -22,6 +26,7 @@ interface PasteurizerResults {
   freezingWaterInputFlowRate: ResultUnit<number>;
   requiredAreaToHeatExchanger: ResultUnit<number>;
   heatLoss: ResultUnit<number>;
+  operationalCost: ResultUnit<number>;
 }
 interface PasteurizerState {
     settings: PasteurizerSettings;
@@ -45,7 +50,11 @@ function getInitialState() : PasteurizerState{
             milkVolume: 500,
             milkFreezeTemp: 4.5,
             duration: 1,
-            efficiency: 75
+            efficiency: 75,
+            steamCostPerKilo: 0.15,
+            waterCostPerCubic: 15.75,
+            estimateElectricConsume: 7.5,
+            costPerKwH: 0.60,
         },
         results: {
             energyConsumedToHeatMilk:       {result: null, measure: 'kJ'},
@@ -54,6 +63,7 @@ function getInitialState() : PasteurizerState{
             freezingWaterInputFlowRate:     {result: null, measure: 'kg/h'},
             requiredAreaToHeatExchanger:    {result: null, measure: 'm²'},
             milkFlowRate:                   {result: null, measure: 'L/min'},
+            operationalCost:                {result: null, measure: 'R$/h'}
         }
     };
 }

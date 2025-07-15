@@ -12,7 +12,15 @@ export interface PasteurizerSettings {
     // (%) Eficiência da pasteurização
     // !ATENÇÃO! No momento do cálculo é em decimal e para o usuário será mostrado
     // como porcentagem (%) x/100  
-    efficiency: number
+    efficiency: number,
+    // (R$/kg) Custo por kg do vapor
+    steamCostPerKilo: number,
+    // (R$/m³) Custo por metri cúbico de água
+    waterCostPerCubic: number,
+    // (kW/h) Consumo elétrico estimado
+    estimateElectricConsume: number,
+    // (Custo por kWh) Custo por kWh
+    costPerKwH: number
 }
 
 
@@ -37,6 +45,10 @@ export class Pasteurizer{
     private milkFreezeTemp:number;
     private duration: number;
     private efficiency: number;
+    private steamCostPerKilo: number;
+    private waterCostPerCubic: number;
+    private estimateElectricConsume: number;
+    private costPerKwH: number;
 
     constructor(settings: PasteurizerSettings){
         this.milkInputTemp = settings.milkInputTemp;
@@ -45,7 +57,10 @@ export class Pasteurizer{
         this.milkFreezeTemp = settings.milkFreezeTemp;
         this.duration = settings.duration;
         this.efficiency = settings.efficiency;
-
+        this.steamCostPerKilo = settings.steamCostPerKilo;
+        this.waterCostPerCubic = settings.waterCostPerCubic;
+        this.estimateElectricConsume = settings.estimateElectricConsume;
+        this.costPerKwH = settings.costPerKwH;
     }
     static floatRound(floatNumber:number, precision: number = 0):number{
         if( precision <= 0){
@@ -172,5 +187,24 @@ export class Pasteurizer{
         const result:number = waterMass / this.duration;
         return Pasteurizer.floatRound(result, 2);
     }
+    // O: (R$/h) Custo operacional total
+    public operationalCost():number{
+        // --- VALORES INTERMEDIÁRIOS ---
+        const steamInputFlowRate = this.steamInputFlowRate();
+        const freezingWaterInputFlowRate = this.freezingWaterInputFlowRate();
+
+        // --- FORMULAS  ---
+        // 1º Custo do Vapor
+        const steamCost = steamInputFlowRate * this.steamCostPerKilo;
+        // 2º Custo da Água Fria
+        const waterCost = freezingWaterInputFlowRate * this.waterCostPerCubic;
+        // 3º Custo de Energia Elétrica
+        const electricCost = this.estimateElectricConsume * this.costPerKwH;
+
+        // 4º Custo Operacional Total
+        const result:number = (steamCost + waterCost + electricCost);
+
+        return Pasteurizer.floatRound(result, 2);
+    }    
 
 }

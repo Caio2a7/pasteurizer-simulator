@@ -46,7 +46,7 @@ function toggleMenu() {
       </nav>
 
       <div class="flex items-center gap-4">
-        <a href="https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/1092677/1/CT180SoniaMaria.pdf">
+        <a href="https://drive.google.com/file/d/1L2KAN1ixyU6hWL0efCLDqgtCXaL-jQJG/view?usp=sharing">
           <button class="bg-[#212f42] group relative hidden overflow-hidden rounded-lg border border-white-400 shadow-sm px-5 py-2.5 text-sm font-bold text-white transition-transform duration-300 hover:scale-105 lg:block">
             <span class="absolute -inset-full top-0 block -translate-x-full -skew-x-12 transform bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:translate-x-full group-hover:duration-1000"></span>
             Saiba Mais
@@ -80,7 +80,7 @@ function toggleMenu() {
           FAQ
         </a>
         <div class="px-8 py-4">
-            <a href="https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/1092677/1/CT180SoniaMaria.pdf">
+            <a href="https://drive.google.com/file/d/1L2KAN1ixyU6hWL0efCLDqgtCXaL-jQJG/view?usp=sharing">
           <button class="bg-[#212f42] group relative hidden overflow-hidden rounded-lg border border-white-400 shadow-sm px-5 py-2.5 text-sm font-bold text-white transition-transform duration-300 hover:scale-105 lg:block">
             <span class="absolute -inset-full top-0 block -translate-x-full -skew-x-12 transform bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:translate-x-full group-hover:duration-1000"></span>
             Saiba Mais

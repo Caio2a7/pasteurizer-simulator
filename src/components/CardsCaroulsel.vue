@@ -36,7 +36,7 @@ const cardsButtonTransition = ref('');
 </script>
 
 <template>
-    <div class="relative flex justify-center items-center mt-0 mb-7 pt-12 sm:mx-0">
+    <div class="lg:w-auto md:w-full sm:w-full xs:w-full relative flex justify-center items-center mt-0 mb-7 pt-12 sm:mx-0">
         <div class="absolute right-4 top-2 xl:top-14 lg:top-2 md:top-2 sm:top-2 z-10 flex items-center gap-x-2">
             <button
                 type="button"
@@ -83,11 +83,13 @@ const cardsButtonTransition = ref('');
                     <span>&#x21bb;</span>
                 </button>
         </div>
-        <Transition :name="props.transitionName" mode="out-in">
-            <slot>
-                
-            </slot>
-        </Transition>
+        <div class="w-full">
+            <Transition :name="props.transitionName" mode="out-in">
+                <slot>
+                    
+                </slot>
+            </Transition>
+        </div>
     </div>
 </template>
 
