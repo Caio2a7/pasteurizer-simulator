@@ -161,12 +161,31 @@ onMounted(() => {
           </div>
         </div>
 
+        <div class="formula-card" data-aos="fade-up" duration="300">
+          <h3 class="formula-title">7. Custo Operacional (R$/h)</h3>
+          <p class="description">Agrega os custos de vapor, água fria e eletricidade para calcular o custo operacional total da pasteurização.</p>
+          <div class="formula-block">E_{\text{perdida}} = E_{\text{total}} \cdot (1 - \eta)</div>
+          <div class="variables-section">
+            <h4 class="variables-title">Variáveis e Passos:</h4>
+            <ul class="variable-list">
+              <li><strong>Energia Total (<span class="formula-inline">E_{\text{total}}</span>):</strong> A energia total calculada no primeiro passo.</li>
+              <li><strong>Eficiência (<span class="formula-inline">\eta</span>):</strong> A eficiência do equipamento em formato decimal. A parcela <span class="formula-inline">(1 - \eta)</span> representa a fração da energia que é perdida.</li>
+            </ul>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+h3{
+  font-size: 1.7rem !important;
+}
+p, span, li{
+  font-size: 1.5rem !important;
+}
 /* Os estilos permanecem exatamente os mesmos. Nenhuma alteração aqui. */
 .about-page {
   color: #212529;

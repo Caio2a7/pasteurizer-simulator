@@ -76,7 +76,8 @@ export class Pasteurizer{
         return milkVolumeInM3 * Pasteurizer.milkDensity;
     }
     private _energyConsumedToHeatMilk: number | null = null;
-
+    private _freezingWaterInputFlowRate: number | null = null;
+    private _steamInputFlowRate:number | null = null;
 
     // 1ª m (leite) = V (leite) * p (leite)
     // 2ª Q (leite) = m (leite) * c (leite) * (Tf - Ti)  
@@ -109,7 +110,7 @@ export class Pasteurizer{
         const steamMass:number = this.EnergyConsumedtoHeatMilk() / Pasteurizer.steamLatentHeat;
         // 2º Calcular a vazão de entrada de vapor no pasteurizador        
         const result:number = steamMass / this.duration;
-
+        this._steamInputFlowRate = Pasteurizer.floatRound(result,2);
         return Pasteurizer.floatRound(result, 2);
     }
     // O: (m²) Área necessária do trocador de calor
@@ -185,19 +186,16 @@ export class Pasteurizer{
         const waterMass = (energyConsumedToFreeze) / (Pasteurizer.waterSpecificHeatTemp * waterTempDiff)
         // 3º Calcular a Vazão de Entrada de Água Fria 
         const result:number = waterMass / this.duration;
+        this._freezingWaterInputFlowRate = Pasteurizer.floatRound(result, 2);
         return Pasteurizer.floatRound(result, 2);
     }
     // O: (R$/h) Custo operacional total
     public operationalCost():number{
-        // --- VALORES INTERMEDIÁRIOS ---
-        const steamInputFlowRate = this.steamInputFlowRate();
-        const freezingWaterInputFlowRate = this.freezingWaterInputFlowRate();
-
         // --- FORMULAS  ---
         // 1º Custo do Vapor
-        const steamCost = steamInputFlowRate * this.steamCostPerKilo;
+        const steamCost:number = this.steamInputFlowRate() * this.steamCostPerKilo;
         // 2º Custo da Água Fria
-        const waterCost = freezingWaterInputFlowRate * this.waterCostPerCubic;
+        const waterCost:number = (this.freezingWaterInputFlowRate()/1000) * this.waterCostPerCubic;
         // 3º Custo de Energia Elétrica
         const electricCost = this.estimateElectricConsume * this.costPerKwH;
 

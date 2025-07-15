@@ -69,36 +69,56 @@ watch(pasteurizerResults, (newResults) => {
 
 const EnergyConsumedToHeatMilk = () => {
     const pasteurizer = new Pasteurizer(settings);
+    //GAMBIARRA
+    pasteurizerResults.energyConsumedToHeatMilk.result = null;
     return pasteurizerResults.energyConsumedToHeatMilk.result = pasteurizer.EnergyConsumedtoHeatMilk();
 }
 
 const milkFlowRate = () => {
     const pasteurizer = new Pasteurizer(settings);
+    //GAMBIARRA
+    pasteurizerResults.milkFlowRate.result = null;
+
     return pasteurizerResults.milkFlowRate.result = pasteurizer.milkFlowRate();
 }
 
 const steamInputFlowRate = () => {
     const pasteurizer = new Pasteurizer(settings);
+    //GAMBIARRA
+    pasteurizerResults.steamInputFlowRate.result = null;
+
     return pasteurizerResults.steamInputFlowRate.result = pasteurizer.steamInputFlowRate();
 }
 
 const freezingWaterInputFlowRate = () => {
     const pasteurizer = new Pasteurizer(settings);
+    //GAMBIARRA
+    pasteurizerResults.freezingWaterInputFlowRate.result = null;
+
     return pasteurizerResults.freezingWaterInputFlowRate.result = pasteurizer.freezingWaterInputFlowRate();
 }
 
 const requiredAreaToHeatExchanger = () => {
     const pasteurizer = new Pasteurizer(settings);
+    //GAMBIARRA
+    pasteurizerResults.requiredAreaToHeatExchanger.result = null;
+
     return pasteurizerResults.requiredAreaToHeatExchanger.result = pasteurizer.requiredAreaToHeatExchanger();
 }
 
 const heatLoss = () => {
     const pasteurizer = new Pasteurizer(settings);
+    //GAMBIARRA
+    pasteurizerResults.heatLoss.result = null;
+
     return pasteurizerResults.heatLoss.result = pasteurizer.heatLoss();
 }
 
 const operationalCost = () => {
     const pasteurizer = new Pasteurizer(settings);
+    //GAMBIARRA
+    pasteurizerResults.operationalCost.result = null;
+
     return pasteurizerResults.operationalCost.result = pasteurizer.operationalCost();
 }
 
@@ -134,16 +154,19 @@ onMounted(() => {
   });
 });
 
-watch(pasteurizerResults, (newValues) => {
-  const allFilled = Object.values(newValues).every(item => item.result !== null);
-
-  if (allFilled) {
-    allResultsReady.value = true;
-    
+const scrollToView = () => {
     nextTick(() => {
-      resultsSection.value?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        resultsSection.value?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
-  }
+}
+
+watch(pasteurizerResults, (newValues) => {
+    const allFilled = Object.values(newValues).every(item => item.result !== null);
+
+    if (allFilled) {
+    allResultsReady.value = true;
+        scrollToView()
+    }
 }, {
   deep: true 
 });
@@ -203,8 +226,8 @@ const handleResetValues = () => {
     }
     disabledButton.value = '';
     transitionName.value = 'slide-next';
-    return actualCardPosition.value = 0;
     allResultsReady.value = false;
+    return actualCardPosition.value = 0;
 }
 
 </script>
@@ -214,15 +237,9 @@ const handleResetValues = () => {
         <Section data-aos="fade-up" duration="300" title="O que é um Pasteurizador ?" description="O pasteurizador é um equipamento que aquece alimentos a uma temperatura controlada e depois os resfria para eliminar microrganismos e estender a vida útil do produto com segurança. Este sistema simulará seu desempenho calculando: Energia total gasta (kJ), Vazão do leite (L/min), Vazão de vapor e de água fria (kg/h), Área do trocador de calor (m²) e as Perdas térmicas (kJ).">
 
             <div class="mt-8 flex items-start justify-start gap-x-6">
-                <a href="/sobre" class=" inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors duration-200">
-                Saber mais sobre o projeto <span aria-hidden="true">→</span>
+                <a href="/sobre" class=" inline-flex items-center gap-1.5 text-sm sm:text-base lg:text-lg xl:text-xl 2xl:text-2xl font-semibold text-blue-600 hover:text-blue-700 transition-colors duration-200">
+                Saber mais sobre o projeto ->
                 </a>
-
-                <!-- <div class="h-4 w-px bg-gray-300"></div>
-
-                <a href="/sobre" class="text-sm text-gray-500 hover:text-gray-800 transition-colors duration-200">
-                Referências
-                </a> -->
             </div>
         </Section>
 
@@ -429,7 +446,7 @@ const handleResetValues = () => {
                                 <div class="relative">
                                     <input readonly 
                                     :value="pasteurizerResults.steamInputFlowRate.result"  
-                                    type="number" id="steamInRateCost" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="2°C">
+                                    type="number" id="steamInRateCost" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Exp: 2°C">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">kg/h</span>
                                 </div>
                             </div>
@@ -439,23 +456,23 @@ const handleResetValues = () => {
                                 <div class="relative">
                                     <input readonly 
                                     :value="pasteurizerResults.freezingWaterInputFlowRate.result" 
-                                    type="number" id="waterInRateCost" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="25°C">
+                                    type="number" id="waterInRateCost" class="disabled-input w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Exp: 25°C">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">kg/h</span>
                                 </div>
                             </div>
 
                             <div>
-                                <label for="steamCostPerQuilo" class="block mb-2 text-sm font-medium text-gray-700 ">Custo do Vapor por Kg</label>
+                                <label for="steamCostPerKilo" class="block mb-2 text-sm font-medium text-gray-700 ">Custo do Vapor por Kg</label>
                                 <div class="relative">
-                                    <input v-model="settings.steamCostPerQuilo" type="number" id="steamCostPerQuilo" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: R$ 0.15/kg">
+                                    <input v-model="settings.steamCostPerKilo" type="number" id="steamCostPerKilo" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-12 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: R$ 0.15/kg">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">R$/kg</span>
                                 </div>
                             </div>
             
                             <div>
-                                <label for="freezinwaterCostPerCubic" class="block mb-2 text-sm font-medium text-gray-700 ">Custo da Água Fria por M³</label>
+                                <label for="waterCostPerCubic" class="block mb-2 text-sm font-medium text-gray-700 ">Custo da Água Fria por M³</label>
                                 <div class="relative">
-                                    <input v-model="settings.freezinwaterCostPerCubic" type="number" id="freezinwaterCostPerCubic" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: R$ 15.75/m³">
+                                    <input v-model="settings.waterCostPerCubic" type="number" id="waterCostPerCubic" class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 pr-10 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Ex: R$ 15.75/m³">
                                     <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-gray-500 ">R$/m³</span>
                                 </div>
                             </div>
